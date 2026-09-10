@@ -643,34 +643,30 @@ html, body {
   justify-content: center;
   color: #ffe699;
   line-height: 1;
-  text-shadow: 0 0 5px rgba(255, 215, 90, 0.9), 0 0 10px rgba(245, 185, 70, 0.5);
-  animation: streamGlitterDrift 7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  text-shadow: 0 0 5px rgba(255, 215, 90, 0.95), 0 0 10px rgba(245, 185, 70, 0.6);
+  animation: streamGlitterDrift 6.5s linear infinite;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 .stream-dot {
   position: absolute;
   border-radius: 50%;
   background: #fffdf5;
-  box-shadow: 0 0 5px 2px rgba(255, 215, 90, 0.75);
-  animation: streamDotDrift 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  box-shadow: 0 0 5px 2px rgba(255, 215, 90, 0.85);
+  animation: streamDotDrift 7.5s linear infinite;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
-/* Định vị và thời gian các hạt kim tuyến trong dải sáng */
-.stream-p1  { top: 8%;  right: 22%; font-size: 13px; animation-delay: 0s; }
-.stream-p2  { top: 14%; right: 28%; width: 4px; height: 4px; animation-delay: -1.2s; }
-.stream-p3  { top: 18%; right: 19%; font-size: 10px; animation-delay: -2.8s; }
-.stream-p4  { top: 22%; right: 32%; width: 5px; height: 5px; animation-delay: -4.5s; }
-.stream-p5  { top: 28%; right: 36%; font-size: 12px; animation-delay: -3.4s; }
-.stream-p6  { top: 34%; right: 25%; width: 4px; height: 4px; animation-delay: -0.8s; }
-.stream-p7  { top: 40%; right: 42%; font-size: 14px; animation-delay: -5.6s; }
-.stream-p8  { top: 44%; right: 32%; width: 6px; height: 6px; animation-delay: -2.1s; }
-.stream-p9  { top: 52%; right: 48%; font-size: 11px; animation-delay: -4.2s; }
-.stream-p10 { top: 58%; right: 38%; width: 5px; height: 5px; animation-delay: -6.1s; }
-.stream-p11 { top: 66%; right: 54%; font-size: 13px; animation-delay: -1.9s; }
-.stream-p12 { top: 72%; right: 44%; width: 4px; height: 4px; animation-delay: -3.8s; }
-.stream-p13 { top: 78%; right: 60%; font-size: 10px; animation-delay: -5.1s; }
+/* Định vị và thời gian các hạt sao kim tuyến rơi nhẹ nhàng, thoáng đãng */
+.stream-p1 { top: 6%;  right: 22%; font-size: 12px; animation-delay: 0s; }
+.stream-p2 { top: 16%; right: 28%; width: 4px; height: 4px; animation-delay: -2.2s; }
+.stream-p3 { top: 28%; right: 35%; font-size: 13px; animation-delay: -4.4s; }
+.stream-p4 { top: 38%; right: 25%; width: 5px; height: 5px; animation-delay: -1.2s; }
+.stream-p5 { top: 48%; right: 42%; font-size: 11px; animation-delay: -3.4s; }
+.stream-p6 { top: 58%; right: 34%; width: 4px; height: 4px; animation-delay: -5.6s; }
+.stream-p7 { top: 68%; right: 50%; font-size: 12px; animation-delay: -2.8s; }
 
 /* Kim tuyến & Ánh sao lấp lánh nhẹ nhàng (Delicate Starlight Glitter) */
 .glitter-container {
