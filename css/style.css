@@ -1228,6 +1228,240 @@ html, body {
   cursor: zoom-in;
 }
 
+/* Floating Peony Petals (Option 5) */
+.gallery-petals-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 380px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 28;
+}
+
+@media (min-width: 640px) {
+  .gallery-petals-layer {
+    height: 460px;
+  }
+}
+
+.peony-petal {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 4px 8px rgba(45, 10, 15, 0.35));
+}
+
+.peony-petal img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+}
+
+/* Petal 1: Outer Left Flank */
+.peony-petal.petal-1 {
+  width: 35px;
+  left: calc(50% - 126px);
+  top: 0;
+  animation: petalFallMobile 8.8s linear infinite;
+}
+.peony-petal.petal-1 img {
+  animation: petalSway1 3.1s ease-in-out infinite alternate;
+}
+
+/* Petal 2: Outer Right Flank */
+.peony-petal.petal-2 {
+  width: 28px;
+  left: calc(50% + 96px);
+  top: 0;
+  animation: petalFallMobile 9.4s linear infinite 1.8s;
+}
+.peony-petal.petal-2 img {
+  animation: petalSway2 3.4s ease-in-out infinite alternate;
+}
+
+/* Petal 3: Upper Left Shoulder (Foreground Velvet Petal) */
+.peony-petal.petal-3 {
+  width: 38px;
+  left: calc(50% - 85px);
+  top: 0;
+  animation: petalFallMobile 8.2s linear infinite 3.6s;
+}
+.peony-petal.petal-3 img {
+  animation: petalSway3 2.8s ease-in-out infinite alternate;
+}
+
+/* Petal 4: Upper Right Shoulder (Delicate Curled Petal) */
+.peony-petal.petal-4 {
+  width: 26px;
+  left: calc(50% + 68px);
+  top: 0;
+  animation: petalFallMobile 9.0s linear infinite 5.4s;
+}
+.peony-petal.petal-4 img {
+  animation: petalSway4 3.3s ease-in-out infinite alternate;
+}
+
+/* Petal 5: Outer Left Ambient Breeze */
+.peony-petal.petal-5 {
+  width: 24px;
+  left: calc(50% - 148px);
+  top: 0;
+  animation: petalFallMobile 8.0s linear infinite 7.0s;
+}
+.peony-petal.petal-5 img {
+  animation: petalSway5 2.6s ease-in-out infinite alternate;
+}
+
+/* Silky smooth linear vertical descent with gentle fade & quiet rest */
+@keyframes petalFallMobile {
+  0% {
+    transform: translateY(-25px);
+    opacity: 0;
+  }
+  6% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  16% {
+    transform: translateY(45px);
+    opacity: 0.95;
+  }
+  72% {
+    transform: translateY(270px);
+    opacity: 0.92;
+  }
+  84% {
+    transform: translateY(345px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(355px);
+    opacity: 0;
+  }
+}
+
+/* Diverse organic 3D rocking & horizontal drift variations */
+@keyframes petalSway1 {
+  0% {
+    transform: translateX(-14px) rotate(-18deg) rotateX(24deg) rotateY(-12deg);
+  }
+  50% {
+    transform: translateX(4px) rotate(6deg) rotateX(-12deg) rotateY(16deg);
+  }
+  100% {
+    transform: translateX(18px) rotate(24deg) rotateX(16deg) rotateY(-10deg);
+  }
+}
+
+@keyframes petalSway2 {
+  0% {
+    transform: translateX(15px) rotate(22deg) rotateX(20deg) rotateY(14deg);
+  }
+  50% {
+    transform: translateX(-4px) rotate(-8deg) rotateX(-14deg) rotateY(-16deg);
+  }
+  100% {
+    transform: translateX(-16px) rotate(-22deg) rotateX(16deg) rotateY(10deg);
+  }
+}
+
+@keyframes petalSway3 {
+  0% {
+    transform: translateX(-18px) scaleX(-1) rotate(15deg) rotateX(-18deg) rotateY(15deg);
+  }
+  50% {
+    transform: translateX(2px) scaleX(-1) rotate(-6deg) rotateX(12deg) rotateY(-12deg);
+  }
+  100% {
+    transform: translateX(16px) scaleX(-1) rotate(-26deg) rotateX(-14deg) rotateY(18deg);
+  }
+}
+
+@keyframes petalSway4 {
+  0% {
+    transform: translateX(12px) scaleX(-1) rotate(-16deg) rotateX(22deg) rotateY(-10deg);
+  }
+  50% {
+    transform: translateX(-3px) scaleX(-1) rotate(4deg) rotateX(-16deg) rotateY(14deg);
+  }
+  100% {
+    transform: translateX(-14px) scaleX(-1) rotate(20deg) rotateX(14deg) rotateY(-12deg);
+  }
+}
+
+@keyframes petalSway5 {
+  0% {
+    transform: translateX(-10px) rotate(18deg) rotateX(16deg) rotateY(12deg);
+  }
+  50% {
+    transform: translateX(3px) rotate(-4deg) rotateX(-12deg) rotateY(-14deg);
+  }
+  100% {
+    transform: translateX(14px) rotate(-14deg) rotateX(18deg) rotateY(10deg);
+  }
+}
+
+/* Desktop Responsive Layout & Trajectory */
+@media (min-width: 640px) {
+  .peony-petal.petal-1 {
+    width: 44px;
+    left: calc(50% - 160px);
+    animation-name: petalFallDesktop;
+  }
+  .peony-petal.petal-2 {
+    width: 34px;
+    left: calc(50% + 125px);
+    animation-name: petalFallDesktop;
+  }
+  .peony-petal.petal-3 {
+    width: 46px;
+    left: calc(50% - 110px);
+    animation-name: petalFallDesktop;
+  }
+  .peony-petal.petal-4 {
+    width: 32px;
+    left: calc(50% + 90px);
+    animation-name: petalFallDesktop;
+  }
+  .peony-petal.petal-5 {
+    width: 30px;
+    left: calc(50% - 185px);
+    animation-name: petalFallDesktop;
+  }
+}
+
+@keyframes petalFallDesktop {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  6% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  16% {
+    transform: translateY(55px);
+    opacity: 0.95;
+  }
+  72% {
+    transform: translateY(335px);
+    opacity: 0.92;
+  }
+  84% {
+    transform: translateY(425px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(435px);
+    opacity: 0;
+  }
+}
+
 /* Controls (Prev, Counter, Next) */
 .coverflow-controls {
   display: flex;
