@@ -1741,7 +1741,13 @@ html, body {
 /* Modal Popup Styles */
 .modal-backdrop {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
   z-index: 2000;
@@ -1769,6 +1775,8 @@ html, body {
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   animation: fadeIn 0.3s ease-out;
   border: 1px solid rgba(81, 20, 25, 0.2);
+  box-sizing: border-box;
+  margin: auto;
 }
 
 .modal-close-btn {
@@ -1850,6 +1858,191 @@ html, body {
 
 .btn-form-submit:hover {
   background-color: var(--primary-light);
+}
+
+/* ===================================================
+   RSVP THANK YOU CARD VIEW (PHƯƠNG ÁN A)
+   =================================================== */
+.rsvp-view-panel {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.rsvp-thankyou-view.animate-fade-in {
+  animation: modalScaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalScaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.thankyou-card-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 2px 2px;
+}
+
+.thankyou-icon-wrap {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.thankyou-badge-ring {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f5dd94 0%, #dfba63 50%, #b88628 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(223, 186, 99, 0.45);
+  animation: heartPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 6px 18px rgba(223, 186, 99, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 8px 25px rgba(223, 186, 99, 0.65);
+  }
+}
+
+.thankyou-heart-svg {
+  filter: drop-shadow(0 2px 4px rgba(81, 20, 25, 0.3));
+}
+
+.thankyou-couple-name {
+  font-family: var(--font-script, 'Great Vibes', cursive);
+  font-size: 32px;
+  color: var(--primary);
+  line-height: 1.15;
+  margin-bottom: 4px;
+  text-shadow: 0 1px 2px rgba(81, 20, 25, 0.08);
+}
+
+.thankyou-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-deep);
+  margin-bottom: 10px;
+}
+
+.thankyou-guest-highlight {
+  color: var(--gold-dark, #a8791e);
+  font-weight: 700;
+  border-bottom: 1.5px solid rgba(201, 162, 74, 0.4);
+  padding-bottom: 1px;
+}
+
+.thankyou-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 180px;
+  margin: 0 auto 12px;
+  position: relative;
+}
+
+.thankyou-divider::before,
+.thankyou-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201, 162, 74, 0.5), transparent);
+}
+
+.thankyou-divider-ornament {
+  padding: 0 10px;
+  color: var(--gold-dark, #a8791e);
+  font-size: 14px;
+}
+
+.thankyou-message {
+  font-family: var(--font-serif);
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #4a282b;
+  margin-bottom: 16px;
+}
+
+.thankyou-p1 {
+  margin-bottom: 8px;
+}
+
+.thankyou-p2 {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.thankyou-event-badge {
+  background: rgba(81, 20, 25, 0.04);
+  border: 1px dashed rgba(201, 162, 74, 0.55);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--primary-deep);
+}
+
+.thankyou-badge-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.thankyou-badge-item svg {
+  color: var(--gold-dark, #a8791e);
+  flex-shrink: 0;
+}
+
+.btn-thankyou-action {
+  width: 100%;
+  max-width: 260px;
+  padding: 11px 24px;
+  background: linear-gradient(135deg, #f2d98c 0%, #dfba63 50%, #c19638 100%);
+  color: #4a151b;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 9999px;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(201, 162, 74, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-thankyou-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 162, 74, 0.5);
+}
+
+.btn-thankyou-action .heart-dot {
+  color: #7a1f26;
+  font-size: 16px;
+  line-height: 1;
 }
 
 

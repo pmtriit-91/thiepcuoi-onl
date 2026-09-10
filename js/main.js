@@ -510,31 +510,53 @@ function showToast(text) {
 }
 
 /**
- * Modal Xác Nhận Tham Dự (RSVP)
+ * Modal Xác Nhận Tham Dự (RSVP) & Thiệp Tri Ân (Thank You Card)
  */
 function initRsvpModal() {
     const openBtn = document.getElementById('btn-open-rsvp');
     const modal = document.getElementById('rsvp-modal');
     const closeBtn = document.getElementById('rsvp-modal-close');
     const form = document.getElementById('rsvp-form');
+    const formView = document.getElementById('rsvp-form-view');
+    const successView = document.getElementById('rsvp-success-view');
+    const thankyouCloseBtn = document.getElementById('btn-thankyou-close');
+    const guestNameDisplay = document.getElementById('thankyou-guest-name');
 
     if (!modal) return;
 
     const openModal = () => {
-        if (typeof fireConfettiCannon === 'function') {
-            fireConfettiCannon();
+        // Reset về form view mỗi khi mở
+        if (formView && successView) {
+            formView.style.display = '';
+            successView.style.display = 'none';
+            successView.classList.remove('animate-fade-in');
         }
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+
+        if (typeof fireConfettiCannon === 'function') {
+            fireConfettiCannon();
+        }
     };
 
     const closeModal = () => {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+
+        // Đặt lại form sau khi đóng modal xong
+        setTimeout(() => {
+            if (formView && successView) {
+                formView.style.display = '';
+                successView.style.display = 'none';
+                successView.classList.remove('animate-fade-in');
+            }
+            if (form) form.reset();
+        }, 300);
     };
 
     if (openBtn) openBtn.addEventListener('click', openModal);
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (thankyouCloseBtn) thankyouCloseBtn.addEventListener('click', closeModal);
 
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
@@ -543,7 +565,8 @@ function initRsvpModal() {
     if (form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            const guestName = document.getElementById('rsvp-name').value;
+            const guestNameInput = document.getElementById('rsvp-name');
+            const guestName = (guestNameInput ? guestNameInput.value : '').trim();
             const count = document.getElementById('rsvp-count').value;
             const wish = document.getElementById('rsvp-wish').value;
 
@@ -556,13 +579,22 @@ function initRsvpModal() {
             });
             localStorage.setItem('wedding_rsvp', JSON.stringify(responses));
 
+            // Cá nhân hóa tên khách trên tấm thiệp cảm ơn
+            if (guestNameDisplay) {
+                guestNameDisplay.textContent = guestName || 'Bạn';
+            }
+
+            // Nổ pháo giấy chúc mừng
             if (typeof fireConfettiCannon === 'function') {
                 fireConfettiCannon();
             }
 
-            closeModal();
-            form.reset();
-            showToast('Cảm ơn bạn đã gửi phản hồi tham dự!');
+            // Chuyển đổi mượt sang Tấm thiệp tri ân (Thank You Card)
+            if (formView && successView) {
+                formView.style.display = 'none';
+                successView.style.display = 'block';
+                successView.classList.add('animate-fade-in');
+            }
         });
     }
 }

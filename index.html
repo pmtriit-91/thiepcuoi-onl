@@ -447,30 +447,85 @@
   <div id="rsvp-modal" class="modal-backdrop">
     <div class="modal-card">
       <button id="rsvp-modal-close" class="modal-close-btn" aria-label="Đóng">&times;</button>
-      <h3 class="modal-title">Xác Nhận Tham Dự</h3>
+      
+      <!-- 1. Form View -->
+      <div id="rsvp-form-view" class="rsvp-view-panel">
+        <h3 class="modal-title">Xác Nhận Tham Dự</h3>
 
-      <form id="rsvp-form">
-        <div class="form-group">
-          <label for="rsvp-name">Họ và tên quý khách</label>
-          <input type="text" id="rsvp-name" required placeholder="Nhập tên của bạn..." />
+        <form id="rsvp-form">
+          <div class="form-group">
+            <label for="rsvp-name">Họ và tên quý khách</label>
+            <input type="text" id="rsvp-name" required placeholder="Nhập tên của bạn..." />
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-count">Số lượng người tham dự</label>
+            <select id="rsvp-count">
+              <option value="1">1 người (Đi một mình)</option>
+              <option value="2">2 người (Đi cùng người thương / bạn)</option>
+              <option value="3">3 người trở lên (Cùng gia đình)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-wish">Lời chúc gửi tới Cô Dâu &amp; Chú Rể</label>
+            <textarea id="rsvp-wish" rows="3" placeholder="Gửi gắm lời chúc phúc ấm áp..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-form-submit">Gửi xác nhận</button>
+        </form>
+      </div>
+
+      <!-- 2. Thank You Card View (Phương án A - Mẫu văn 1) -->
+      <div id="rsvp-success-view" class="rsvp-view-panel rsvp-thankyou-view" style="display: none;">
+        <div class="thankyou-card-content">
+          <div class="thankyou-icon-wrap">
+            <div class="thankyou-badge-ring">
+              <svg class="thankyou-heart-svg" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="thankyou-couple-name">Minh Trí &amp; Cẩm Hương</div>
+          
+          <h3 class="thankyou-title">
+            Chân thành cảm ơn <span id="thankyou-guest-name" class="thankyou-guest-highlight">Bạn</span>!
+          </h3>
+
+          <div class="thankyou-divider">
+            <span class="thankyou-divider-ornament">❦</span>
+          </div>
+
+          <div class="thankyou-message">
+            <p class="thankyou-p1">Sự hiện diện và tình cảm của bạn chính là mảnh ghép trọn vẹn nhất cho ngày vui của chúng mình.</p>
+            <p class="thankyou-p2">Tụi mình rất háo hức và mong chờ được đón tiếp bạn vào ngày 29/09 tới!</p>
+          </div>
+
+          <div class="thankyou-event-badge">
+            <div class="thankyou-badge-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>11:30 &bull; Thứ Ba, 29/09/2026</span>
+            </div>
+            <div class="thankyou-badge-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>Rose Palace &bull; 268 Điện Biên Phủ, Huế</span>
+            </div>
+          </div>
+
+          <button type="button" id="btn-thankyou-close" class="btn-thankyou-action">
+            <span>Hẹn gặp lại bạn</span>
+            <span class="heart-dot">&hearts;</span>
+          </button>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label for="rsvp-count">Số lượng người tham dự</label>
-          <select id="rsvp-count">
-            <option value="1">1 người (Đi một mình)</option>
-            <option value="2">2 người (Đi cùng người thương / bạn)</option>
-            <option value="3">3 người trở lên (Cùng gia đình)</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="rsvp-wish">Lời chúc gửi tới Cô Dâu &amp; Chú Rể</label>
-          <textarea id="rsvp-wish" rows="3" placeholder="Gửi gắm lời chúc phúc ấm áp..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-form-submit">Gửi xác nhận</button>
-      </form>
     </div>
   </div>
 
