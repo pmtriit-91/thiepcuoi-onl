@@ -493,10 +493,11 @@ html, body {
   font-family: "MonteCarlo", "Great Vibes", cursive;
   color: var(--primary);
   font-size: clamp(44px, 11vw, 56px);
-  line-height: 1.2;
+  line-height: 1.35;
   font-weight: 400;
   letter-spacing: 0.02em;
   -webkit-font-smoothing: antialiased;
+  overflow: visible;
 }
 
 .couple-ampersand-big {
@@ -508,7 +509,7 @@ html, body {
   font-size: clamp(96px, 25vw, 125px);
   line-height: 1;
   color: rgba(81, 20, 25, 0.16);
-  pointer-events: none;
+  pointer-events: none; 
 }
 
 /* ===================================================
@@ -526,97 +527,142 @@ html, body {
 /* Nguồn phát ánh sáng vàng mùa thu góc trên bên phải */
 .sun-origin-glow {
   position: absolute;
-  top: -60px;
-  right: -60px;
-  width: 280px;
-  height: 280px;
+  top: -70px;
+  right: -70px;
+  width: 340px;
+  height: 340px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(245, 215, 140, 0.45) 0%, rgba(223, 186, 99, 0.22) 35%, transparent 70%);
-  filter: blur(28px);
-  mix-blend-mode: multiply;
+  background: radial-gradient(
+    circle,
+    rgba(255, 205, 80, 0.7) 0%,
+    rgba(245, 175, 50, 0.45) 35%,
+    rgba(230, 145, 35, 0.18) 60%,
+    transparent 78%
+  );
+  filter: blur(24px);
   pointer-events: none;
 }
 
 /* Các chùm tia sáng chiếu chéo từ góc phải trên xuống góc trái dưới (225deg) */
 .sunbeam-ray {
   position: absolute;
-  top: -25%;
-  right: -25%;
-  width: 150%;
-  height: 150%;
+  top: -30%;
+  right: -30%;
+  width: 160%;
+  height: 160%;
   pointer-events: none;
-  animation: sunbeamBreathe 8s ease-in-out infinite alternate;
 }
 
 .ray-1 {
   background: linear-gradient(
-    220deg,
-    rgba(245, 215, 140, 0.3) 0%,
-    rgba(238, 192, 105, 0.18) 22%,
-    rgba(238, 192, 105, 0.05) 50%,
-    transparent 72%
+    222deg,
+    rgba(255, 215, 95, 0.55) 0%,
+    rgba(245, 180, 65, 0.35) 28%,
+    rgba(235, 160, 45, 0.14) 55%,
+    transparent 78%
   );
-  clip-path: polygon(100% 0%, 76% 0%, 0% 82%, 0% 100%);
-  filter: blur(16px);
-  animation-delay: 0s;
+  clip-path: polygon(100% 0%, 70% 0%, 0% 72%, 0% 100%);
+  filter: blur(18px);
+  opacity: 0.9;
+  animation: beamSway1 9s ease-in-out infinite alternate;
 }
 
 .ray-2 {
   background: linear-gradient(
-    225deg,
-    rgba(255, 228, 160, 0.26) 0%,
-    rgba(235, 185, 95, 0.14) 28%,
-    transparent 68%
+    226deg,
+    rgba(255, 230, 125, 0.65) 0%,
+    rgba(250, 190, 70, 0.42) 24%,
+    rgba(240, 165, 45, 0.18) 48%,
+    transparent 72%
   );
-  clip-path: polygon(100% 12%, 85% 0%, 12% 100%, 32% 100%);
-  filter: blur(20px);
-  animation-delay: -3.2s;
+  clip-path: polygon(100% 8%, 80% 0%, 6% 100%, 28% 100%);
+  filter: blur(14px);
+  opacity: 0.95;
+  animation: beamSway2 8s ease-in-out infinite alternate;
 }
 
 .ray-3 {
   background: linear-gradient(
-    215deg,
-    rgba(245, 210, 130, 0.22) 0%,
-    rgba(223, 175, 85, 0.12) 32%,
-    transparent 62%
+    220deg,
+    rgba(255, 220, 105, 0.58) 0%,
+    rgba(245, 175, 55, 0.32) 25%,
+    rgba(235, 155, 40, 0.12) 50%,
+    transparent 70%
   );
-  clip-path: polygon(100% 32%, 93% 18%, 28% 100%, 52% 100%);
-  filter: blur(14px);
-  animation-delay: -5.5s;
+  clip-path: polygon(100% 26%, 88% 14%, 20% 100%, 38% 100%);
+  filter: blur(12px);
+  opacity: 0.88;
+  animation: beamSway1 10s ease-in-out infinite alternate;
+  animation-delay: -3s;
 }
 
 .ray-4 {
   background: linear-gradient(
-    228deg,
-    rgba(250, 220, 145, 0.18) 0%,
-    rgba(230, 180, 90, 0.08) 35%,
-    transparent 65%
+    230deg,
+    rgba(250, 210, 100, 0.48) 0%,
+    rgba(240, 170, 55, 0.28) 30%,
+    rgba(230, 150, 40, 0.1) 55%,
+    transparent 70%
   );
-  clip-path: polygon(100% 50%, 98% 38%, 45% 100%, 65% 100%);
-  filter: blur(18px);
-  animation-delay: -1.8s;
+  clip-path: polygon(100% 46%, 94% 34%, 38% 100%, 58% 100%);
+  filter: blur(16px);
+  opacity: 0.82;
+  animation: beamSway2 11s ease-in-out infinite alternate;
+  animation-delay: -5s;
+}
+
+/* Lớp phủ tia sáng chiếu xuyên nhẹ qua ảnh và thiệp (Foreground Volumetric Flare) */
+.autumn-sunbeams-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  pointer-events: none;
+  overflow: hidden;
+  mix-blend-mode: screen;
+}
+
+.overlay-ray {
+  position: absolute;
+  top: -30%;
+  right: -30%;
+  width: 160%;
+  height: 160%;
+  background: linear-gradient(
+    226deg,
+    rgba(255, 225, 120, 0.48) 0%,
+    rgba(250, 185, 65, 0.3) 24%,
+    rgba(240, 160, 40, 0.1) 48%,
+    transparent 72%
+  );
+  clip-path: polygon(100% 8%, 80% 0%, 6% 100%, 28% 100%);
+  filter: blur(20px);
+  opacity: 0.48;
+  animation: beamSway2 8s ease-in-out infinite alternate;
 }
 
 /* Các hạt bụi nắng vàng ấm bay lơ lửng trong luồng ánh sáng */
 .dust-mote {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 248, 225, 0.95) 0%, rgba(223, 186, 99, 0.45) 55%, transparent 100%);
+  background: #fff8e1;
+  box-shadow: 0 0 6px 2px rgba(245, 175, 60, 0.85);
   pointer-events: none;
-  filter: drop-shadow(0 0 3px rgba(223, 186, 99, 0.6));
-  animation: moteFloat 11s ease-in-out infinite;
+  animation: moteFloat 10s ease-in-out infinite;
 }
 
-.mote-1 { top: 22%; right: 28%; width: 5px; height: 5px; animation-delay: 0s; }
-.mote-2 { top: 38%; right: 42%; width: 4px; height: 4px; animation-delay: -3s; }
-.mote-3 { top: 52%; right: 58%; width: 6px; height: 6px; animation-delay: -6s; }
-.mote-4 { top: 32%; right: 18%; width: 3px; height: 3px; animation-delay: -8.5s; }
-.mote-5 { top: 65%; right: 70%; width: 4px; height: 4px; animation-delay: -4s; }
+.mote-1 { top: 18%; right: 22%; width: 5px; height: 5px; animation-delay: 0s; }
+.mote-2 { top: 32%; right: 38%; width: 6px; height: 6px; animation-delay: -2s; }
+.mote-3 { top: 48%; right: 52%; width: 5px; height: 5px; animation-delay: -5s; }
+.mote-4 { top: 28%; right: 15%; width: 4px; height: 4px; animation-delay: -7s; }
+.mote-5 { top: 62%; right: 68%; width: 6px; height: 6px; animation-delay: -4s; }
+.mote-6 { top: 72%; right: 80%; width: 4px; height: 4px; animation-delay: -1s; }
 
 /* Hiệu ứng lướt sáng ánh kim vàng qua chữ (Shimmering Text) */
 .shimmer-text {
   position: relative;
   display: inline-block;
+  padding: 12px 28px 8px 14px;
+  margin: -6px -14px;
   background: linear-gradient(
     125deg,
     #511419 0%,
@@ -634,6 +680,7 @@ html, body {
   color: transparent;
   animation: textGoldSweep 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   filter: drop-shadow(0 2px 4px rgba(81, 20, 25, 0.08));
+  overflow: visible;
 }
 
 /* Đốm sao vàng lấp lánh nhẹ ở đầu/cuối chữ */
@@ -649,14 +696,14 @@ html, body {
 }
 
 .sparkle-1 {
-  top: -2px;
-  right: -8px;
+  top: 6px;
+  right: 2px;
   animation-delay: 0.8s;
 }
 
 .sparkle-2 {
   bottom: 8px;
-  left: -8px;
+  left: 2px;
   animation-delay: 2.5s;
 }
 
