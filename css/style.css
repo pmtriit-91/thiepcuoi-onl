@@ -636,37 +636,69 @@ html, body {
   z-index: 20;
 }
 
-.stream-star {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffe699;
-  line-height: 1;
-  text-shadow: 0 0 5px rgba(255, 215, 90, 0.95), 0 0 10px rgba(245, 185, 70, 0.6);
-  animation: streamGlitterDrift 6.5s linear infinite;
-  pointer-events: none;
-  will-change: transform, opacity;
-}
-
-.stream-dot {
+/* Hạt cát vàng óng ánh li ti (Shimmering Golden Sand Grain) */
+.sand-grain {
   position: absolute;
   border-radius: 50%;
-  background: #fffdf5;
-  box-shadow: 0 0 5px 2px rgba(255, 215, 90, 0.85);
-  animation: streamDotDrift 7.5s linear infinite;
+  background: #ffffff;
+  box-shadow: 0 0 4px 1.5px rgba(255, 225, 110, 0.95), 0 0 8px 2px rgba(245, 185, 70, 0.6);
   pointer-events: none;
+  animation: sandGlide 6.5s linear infinite;
   will-change: transform, opacity;
 }
 
-/* Định vị và thời gian các hạt sao kim tuyến rơi nhẹ nhàng, thoáng đãng */
-.stream-p1 { top: 6%;  right: 22%; font-size: 12px; animation-delay: 0s; }
-.stream-p2 { top: 16%; right: 28%; width: 4px; height: 4px; animation-delay: -2.2s; }
-.stream-p3 { top: 28%; right: 35%; font-size: 13px; animation-delay: -4.4s; }
-.stream-p4 { top: 38%; right: 25%; width: 5px; height: 5px; animation-delay: -1.2s; }
-.stream-p5 { top: 48%; right: 42%; font-size: 11px; animation-delay: -3.4s; }
-.stream-p6 { top: 58%; right: 34%; width: 4px; height: 4px; animation-delay: -5.6s; }
-.stream-p7 { top: 68%; right: 50%; font-size: 12px; animation-delay: -2.8s; }
+/* Tiểu sao li ti 4 cánh siêu nhỏ (Micro Star Glint) */
+.mini-star {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  pointer-events: none;
+  animation: miniStarGlide 6.5s linear infinite;
+  will-change: transform, opacity;
+}
+
+.mini-star::before, .mini-star::after {
+  content: '';
+  position: absolute;
+  background: #ffffff;
+  border-radius: 1px;
+  box-shadow: 0 0 4px 1px rgba(255, 225, 110, 0.9);
+}
+
+.mini-star::before {
+  top: 0;
+  left: 2.5px;
+  width: 1px;
+  height: 6px;
+}
+
+.mini-star::after {
+  top: 2.5px;
+  left: 0;
+  width: 6px;
+  height: 1px;
+}
+
+.mini-star-core {
+  position: absolute;
+  top: 1.5px;
+  left: 1.5px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fffdf5;
+  box-shadow: 0 0 5px 2px rgba(255, 230, 130, 0.95);
+}
+
+/* Phân bổ các hạt cát & tiểu sao li ti dọc dải sáng (kích thước siêu nhỏ 3px - 5px) */
+.m-grain-1 { top: 6%;  right: 22%; width: 3px; height: 3px; animation-delay: 0s; }
+.m-star-1  { top: 16%; right: 28%; animation-delay: -2.0s; }
+.m-grain-2 { top: 25%; right: 35%; width: 4px; height: 4px; animation-delay: -4.1s; }
+.m-star-2  { top: 35%; right: 26%; animation-delay: -1.1s; }
+.m-grain-3 { top: 45%; right: 42%; width: 3px; height: 3px; animation-delay: -3.3s; }
+.m-star-3  { top: 55%; right: 33%; animation-delay: -5.4s; }
+.m-grain-4 { top: 65%; right: 48%; width: 4px; height: 4px; animation-delay: -2.4s; }
+.m-star-4  { top: 74%; right: 54%; animation-delay: -4.5s; }
 
 /* Kim tuyến & Ánh sao lấp lánh nhẹ nhàng (Delicate Starlight Glitter) */
 .glitter-container {
