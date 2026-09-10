@@ -855,7 +855,7 @@ html, body {
 }
 
 .section-floating-flower.left {
-  left: -12%;
+  left: -18%;
   top: 6%;
 }
 
@@ -865,6 +865,9 @@ html, body {
   }
   .section-floating-flower.right {
     right: -18%;
+  }
+  .section-floating-flower.left {
+    left: -12%;
   }
 }
 
@@ -982,7 +985,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: clamp(20px, 6vw, 36px);
   width: 100%;
   border-top: 1px solid rgba(236, 228, 216, 0.25);
   border-bottom: 1px solid rgba(236, 228, 216, 0.25);
