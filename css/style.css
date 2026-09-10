@@ -524,22 +524,22 @@ html, body {
   z-index: 5;
 }
 
-/* Nguồn phát ánh sáng vàng mùa thu góc trên bên phải */
+/* Nguồn phát ánh sáng vàng mùa thu góc trên bên phải (Softened warm glow) */
 .sun-origin-glow {
   position: absolute;
   top: -70px;
   right: -70px;
-  width: 340px;
-  height: 340px;
+  width: 320px;
+  height: 320px;
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(255, 205, 80, 0.7) 0%,
-    rgba(245, 175, 50, 0.45) 35%,
-    rgba(230, 145, 35, 0.18) 60%,
-    transparent 78%
+    rgba(255, 220, 110, 0.42) 0%,
+    rgba(248, 185, 75, 0.22) 35%,
+    rgba(235, 155, 45, 0.07) 60%,
+    transparent 76%
   );
-  filter: blur(24px);
+  filter: blur(28px);
   pointer-events: none;
 }
 
@@ -556,59 +556,29 @@ html, body {
 .ray-1 {
   background: linear-gradient(
     222deg,
-    rgba(255, 215, 95, 0.55) 0%,
-    rgba(245, 180, 65, 0.35) 28%,
-    rgba(235, 160, 45, 0.14) 55%,
-    transparent 78%
+    rgba(255, 225, 120, 0.36) 0%,
+    rgba(248, 185, 80, 0.20) 28%,
+    rgba(238, 165, 50, 0.07) 55%,
+    transparent 76%
   );
   clip-path: polygon(100% 0%, 70% 0%, 0% 72%, 0% 100%);
-  filter: blur(18px);
-  opacity: 0.9;
+  filter: blur(20px);
+  opacity: 0.70;
   animation: beamSway1 9s ease-in-out infinite alternate;
 }
 
 .ray-2 {
   background: linear-gradient(
     226deg,
-    rgba(255, 230, 125, 0.65) 0%,
-    rgba(250, 190, 70, 0.42) 24%,
-    rgba(240, 165, 45, 0.18) 48%,
-    transparent 72%
+    rgba(255, 235, 140, 0.44) 0%,
+    rgba(250, 195, 85, 0.25) 24%,
+    rgba(240, 170, 55, 0.09) 50%,
+    transparent 74%
   );
-  clip-path: polygon(100% 8%, 80% 0%, 6% 100%, 28% 100%);
-  filter: blur(14px);
-  opacity: 0.95;
+  clip-path: polygon(100% 10%, 78% 0%, 6% 100%, 54% 100%);
+  filter: blur(20px);
+  opacity: 0.72;
   animation: beamSway2 8s ease-in-out infinite alternate;
-}
-
-.ray-3 {
-  background: linear-gradient(
-    220deg,
-    rgba(255, 220, 105, 0.58) 0%,
-    rgba(245, 175, 55, 0.32) 25%,
-    rgba(235, 155, 40, 0.12) 50%,
-    transparent 70%
-  );
-  clip-path: polygon(100% 26%, 88% 14%, 20% 100%, 38% 100%);
-  filter: blur(12px);
-  opacity: 0.88;
-  animation: beamSway1 10s ease-in-out infinite alternate;
-  animation-delay: -3s;
-}
-
-.ray-4 {
-  background: linear-gradient(
-    230deg,
-    rgba(250, 210, 100, 0.48) 0%,
-    rgba(240, 170, 55, 0.28) 30%,
-    rgba(230, 150, 40, 0.1) 55%,
-    transparent 70%
-  );
-  clip-path: polygon(100% 46%, 94% 34%, 38% 100%, 58% 100%);
-  filter: blur(16px);
-  opacity: 0.82;
-  animation: beamSway2 11s ease-in-out infinite alternate;
-  animation-delay: -5s;
 }
 
 /* Lớp phủ tia sáng chiếu xuyên nhẹ qua ảnh và thiệp (Foreground Volumetric Flare) */
@@ -629,14 +599,14 @@ html, body {
   height: 160%;
   background: linear-gradient(
     226deg,
-    rgba(255, 225, 120, 0.48) 0%,
-    rgba(250, 185, 65, 0.3) 24%,
-    rgba(240, 160, 40, 0.1) 48%,
+    rgba(255, 235, 140, 0.30) 0%,
+    rgba(250, 195, 80, 0.16) 24%,
+    rgba(240, 165, 45, 0.05) 48%,
     transparent 72%
   );
-  clip-path: polygon(100% 8%, 80% 0%, 6% 100%, 28% 100%);
-  filter: blur(20px);
-  opacity: 0.48;
+  clip-path: polygon(100% 10%, 78% 0%, 6% 100%, 54% 100%);
+  filter: blur(24px);
+  opacity: 0.30;
   animation: beamSway2 8s ease-in-out infinite alternate;
 }
 
@@ -644,8 +614,8 @@ html, body {
 .dust-mote {
   position: absolute;
   border-radius: 50%;
-  background: #fff8e1;
-  box-shadow: 0 0 6px 2px rgba(245, 175, 60, 0.85);
+  background: #fff9e6;
+  box-shadow: 0 0 4px 1px rgba(245, 185, 80, 0.5);
   pointer-events: none;
   animation: moteFloat 10s ease-in-out infinite;
 }
