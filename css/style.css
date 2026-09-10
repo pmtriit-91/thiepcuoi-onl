@@ -363,6 +363,18 @@ html, body {
   }
 }
 
+@media (min-width: 768px) {
+  #main-card {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #main-card {
+    max-width: 630px;
+  }
+}
+
 /* Paper Silk Texture Overlay */
 .paper-texture-overlay {
   position: absolute;
@@ -386,6 +398,18 @@ html, body {
   text-align: center;
   padding: 48px 20px 32px;
   overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .card-header {
+    padding: 54px 24px 38px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-header {
+    padding: 58px 28px 42px;
+  }
 }
 
 .castle-watermark {
@@ -412,6 +436,22 @@ html, body {
   margin-bottom: 74px;
 }
 
+@media (min-width: 768px) {
+  .header-wedding-tag {
+    font-size: 16px;
+    letter-spacing: 0.3em;
+    margin-bottom: 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header-wedding-tag {
+    font-size: 17px;
+    letter-spacing: 0.32em;
+    margin-bottom: 86px;
+  }
+}
+
 /* Polaroid in Envelope */
 .envelope-photo-stack {
   position: relative;
@@ -420,6 +460,22 @@ html, body {
   max-width: 320px;
   aspect-ratio: 333 / 384;
   margin: 0 auto 28px;
+}
+
+@media (min-width: 768px) {
+  .envelope-photo-stack {
+    width: 84%;
+    max-width: 400px;
+    margin-bottom: 34px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .envelope-photo-stack {
+    width: 85%;
+    max-width: 430px;
+    margin-bottom: 38px;
+  }
 }
 
 .stack-envelope-bg {
@@ -448,6 +504,20 @@ html, body {
   background-color: #ffffff;
   box-shadow: 2px 4px 14px rgba(0, 0, 0, 0.28);
   overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .stack-photo-inner {
+    border-width: 8px;
+    box-shadow: 3px 6px 18px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@media (min-width: 1024px) {
+  .stack-photo-inner {
+    border-width: 9px;
+    box-shadow: 4px 8px 22px rgba(0, 0, 0, 0.32);
+  }
 }
 
 .stack-photo-inner img {
@@ -514,6 +584,24 @@ html, body {
   line-height: 1;
   color: rgba(81, 20, 25, 0.16);
   pointer-events: none; 
+}
+
+@media (min-width: 768px) {
+  .couple-name {
+    font-size: 64px;
+  }
+  .couple-ampersand-big {
+    font-size: 150px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .couple-name {
+    font-size: 68px;
+  }
+  .couple-ampersand-big {
+    font-size: 160px;
+  }
 }
 
 /* ===================================================
