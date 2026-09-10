@@ -62,7 +62,17 @@
     transform: translateY(0) rotate(7deg);
   }
   50% {
-    transform: translateY(-8px) rotate(7deg);
+    transform: translateY(-11px) rotate(7deg);
+  }
+}
+
+/* Gentle vertical floating for decor flower */
+@keyframes flowerFloatVertical {
+  0%, 100% {
+    transform: translateY(0) rotate(-17deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(-17deg);
   }
 }
 

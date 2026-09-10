@@ -462,7 +462,10 @@ html, body {
   top: -12%;
   width: 42%;
   z-index: 25;
-  transform: rotate(-17deg);
+  transform: translateY(0) rotate(-17deg);
+  animation: flowerFloatVertical 5.4s ease-in-out infinite;
+  animation-delay: -2.2s;
+  will-change: transform;
   pointer-events: none;
   filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.3));
 }
