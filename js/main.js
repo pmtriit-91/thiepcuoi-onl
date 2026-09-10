@@ -390,7 +390,7 @@ function initSunbeamDust() {
     }
 
     // 120 hạt bụi nắng li ti thanh thoát, nhẹ nhàng
-    const MOTES_COUNT = 40;
+    const MOTES_COUNT = 240;
     const motes = [];
 
     function createMote(initial = false) {
