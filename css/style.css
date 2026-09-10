@@ -627,6 +627,83 @@ html, body {
 .mote-5 { top: 62%; right: 68%; width: 6px; height: 6px; animation-delay: -4s; }
 .mote-6 { top: 72%; right: 80%; width: 4px; height: 4px; animation-delay: -1s; }
 
+/* Dải kim tuyến lấp lánh chạy dọc bên trong luồng sáng vàng */
+.glitter-stream {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 20;
+}
+
+.stream-star {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffe699;
+  line-height: 1;
+  text-shadow: 0 0 5px rgba(255, 215, 90, 0.9), 0 0 10px rgba(245, 185, 70, 0.5);
+  animation: streamGlitterDrift 7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  pointer-events: none;
+}
+
+.stream-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: #fffdf5;
+  box-shadow: 0 0 5px 2px rgba(255, 215, 90, 0.75);
+  animation: streamDotDrift 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  pointer-events: none;
+}
+
+/* Định vị và thời gian các hạt kim tuyến trong dải sáng */
+.stream-p1  { top: 8%;  right: 22%; font-size: 13px; animation-delay: 0s; }
+.stream-p2  { top: 14%; right: 28%; width: 4px; height: 4px; animation-delay: -1.2s; }
+.stream-p3  { top: 18%; right: 19%; font-size: 10px; animation-delay: -2.8s; }
+.stream-p4  { top: 22%; right: 32%; width: 5px; height: 5px; animation-delay: -4.5s; }
+.stream-p5  { top: 28%; right: 36%; font-size: 12px; animation-delay: -3.4s; }
+.stream-p6  { top: 34%; right: 25%; width: 4px; height: 4px; animation-delay: -0.8s; }
+.stream-p7  { top: 40%; right: 42%; font-size: 14px; animation-delay: -5.6s; }
+.stream-p8  { top: 44%; right: 32%; width: 6px; height: 6px; animation-delay: -2.1s; }
+.stream-p9  { top: 52%; right: 48%; font-size: 11px; animation-delay: -4.2s; }
+.stream-p10 { top: 58%; right: 38%; width: 5px; height: 5px; animation-delay: -6.1s; }
+.stream-p11 { top: 66%; right: 54%; font-size: 13px; animation-delay: -1.9s; }
+.stream-p12 { top: 72%; right: 44%; width: 4px; height: 4px; animation-delay: -3.8s; }
+.stream-p13 { top: 78%; right: 60%; font-size: 10px; animation-delay: -5.1s; }
+
+/* Kim tuyến & Ánh sao lấp lánh nhẹ nhàng (Delicate Starlight Glitter) */
+.glitter-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 25;
+}
+
+.glitter-sparkle {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f7d57f;
+  line-height: 1;
+  pointer-events: none;
+  text-shadow: 0 0 5px rgba(245, 205, 95, 0.85), 0 0 10px rgba(223, 186, 99, 0.45);
+  animation: glitterTwinkle 5.5s ease-in-out infinite;
+}
+
+.glitter-sparkle.star-lg { font-size: 14px; }
+.glitter-sparkle.star-md { font-size: 11px; }
+.glitter-sparkle.star-sm { font-size: 8px; }
+
+.star-pos-1 { top: 16%; left: 24%; animation-delay: 0.3s; }
+.star-pos-2 { top: 11%; right: 26%; animation-delay: 2.1s; }
+.star-pos-3 { top: 38%; right: 17%; animation-delay: 3.8s; }
+.star-pos-4 { top: 49%; left: 34%; animation-delay: 1.2s; }
+.star-pos-5 { top: 56%; right: 28%; animation-delay: 2.9s; }
+.star-pos-6 { top: 83%; right: 19%; animation-delay: 4.5s; }
+
 /* Hiệu ứng lướt sáng ánh kim vàng qua chữ (Shimmering Text) */
 .shimmer-text {
   position: relative;
