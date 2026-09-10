@@ -223,14 +223,31 @@
 
 
     <!-- ===================================================
-         4. SECTION: ALBUM ẢNH CƯỚI (19 ẢNH STUDIO GỐC)
+         4. SECTION: ALBUM ẢNH CƯỚI (3D COVERFLOW CAROUSEL)
          =================================================== -->
-    <section class="gallery-section">
+    <section class="gallery-section" id="gallery-section">
       <img src="assets/decor/castle-background.webp" alt="" class="castle-watermark" style="top: -5%; opacity: 0.08;" aria-hidden="true" />
-      <h2 class="gallery-title">Album Ảnh Cưới</h2>
+      <h2 class="gallery-title">ALBUM ẢNH</h2>
 
-      <div id="gallery-grid" class="gallery-grid">
-        <!-- Rendered dynamically from wedding-data.js -->
+      <div class="coverflow-container" id="coverflow-container">
+        <div class="coverflow-stage" id="coverflow-stage">
+          <!-- Rendered dynamically from wedding-data.js -->
+        </div>
+
+        <!-- Controls: Prev, Counter, Next -->
+        <div class="coverflow-controls">
+          <button type="button" id="coverflow-prev" class="coverflow-btn prev" aria-label="Ảnh trước" title="Ảnh trước">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          
+          <div id="coverflow-counter" class="coverflow-counter">
+            <span id="coverflow-current">1</span> / <span id="coverflow-total">19</span>
+          </div>
+
+          <button type="button" id="coverflow-next" class="coverflow-btn next" aria-label="Ảnh tiếp theo" title="Ảnh tiếp theo">
+            <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+          </button>
+        </div>
       </div>
     </section>
 

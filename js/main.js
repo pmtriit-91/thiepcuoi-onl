@@ -131,12 +131,18 @@ function initAudioPlayer() {
 }
 
 /**
- * Khởi tạo lưới Album ảnh và trình xem phóng to (Lightbox)
+ * Khởi tạo Album ảnh 3D Coverflow và trình xem phóng to (Lightbox)
  */
 let currentLightboxIndex = 0;
 
 function initGalleryAndLightbox() {
-    const galleryGrid = document.getElementById('gallery-grid');
+    const stage = document.getElementById('coverflow-stage');
+    const container = document.getElementById('coverflow-container');
+    const prevBtn = document.getElementById('coverflow-prev');
+    const nextBtn = document.getElementById('coverflow-next');
+    const currentCounter = document.getElementById('coverflow-current');
+    const totalCounter = document.getElementById('coverflow-total');
+
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.getElementById('lightbox-close');
@@ -144,87 +150,276 @@ function initGalleryAndLightbox() {
     const lightboxNext = document.getElementById('lightbox-next');
     const lightboxCounter = document.getElementById('lightbox-counter');
 
-    if (!galleryGrid || !lightbox || !WEDDING_DATA.gallery) return;
+    if (!stage || !WEDDING_DATA.gallery) return;
 
-    // Render danh sách ảnh
-    galleryGrid.innerHTML = '';
-    WEDDING_DATA.gallery.forEach((item, index) => {
-        const el = document.createElement('div');
-        el.className = 'gallery-item';
-        el.innerHTML = `
-      <img src="${item.thumb}" alt="Ảnh cưới ${item.id}" loading="lazy" />
-    `;
-        el.addEventListener('click', () => openLightbox(index));
-        galleryGrid.appendChild(el);
+    const gallery = WEDDING_DATA.gallery;
+    const total = gallery.length;
+    let currentIndex = 0;
+    const cards = [];
+
+    if (totalCounter) totalCounter.textContent = total;
+
+    // Render danh sách thẻ 3D Coverflow
+    stage.innerHTML = '';
+    gallery.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'coverflow-card';
+        card.dataset.index = index;
+        card.innerHTML = `<img src="${item.thumb}" alt="Ảnh cưới ${item.id}" loading="${index < 5 ? 'eager' : 'lazy'}" />`;
+
+        card.addEventListener('click', () => {
+            if (index === currentIndex) {
+                openLightbox(index);
+            } else {
+                goToIndex(index);
+            }
+        });
+
+        stage.appendChild(card);
+        cards.push(card);
     });
 
-    const showImage = (index) => {
-        if (index < 0) index = WEDDING_DATA.gallery.length - 1;
-        if (index >= WEDDING_DATA.gallery.length) index = 0;
+    // Hàm cập nhật trạng thái 3D cho từng thẻ ảnh
+    const updateCoverflow = () => {
+        const isMobile = window.innerWidth < 640;
+        const spacing = isMobile ? 150 : 205;
+        const zStep = isMobile ? 105 : 125;
+        const rotY = isMobile ? 36 : 38;
+
+        cards.forEach((card, i) => {
+            let diff = (i - currentIndex) % total;
+            if (diff > Math.floor(total / 2)) diff -= total;
+            if (diff < -Math.floor(total / 2)) diff += total;
+
+            card.classList.toggle('active', diff === 0);
+
+            if (diff === 0) {
+                card.style.transform = 'translateX(0px) translateZ(0px) rotateY(0deg) scale(1)';
+                card.style.zIndex = '20';
+                card.style.opacity = '1';
+                card.style.visibility = 'visible';
+                card.style.filter = 'brightness(1)';
+                card.style.pointerEvents = 'auto';
+            } else if (diff === 1) {
+                card.style.transform = `translateX(${spacing}px) translateZ(-${zStep}px) rotateY(-${rotY}deg) scale(0.85)`;
+                card.style.zIndex = '15';
+                card.style.opacity = '0.8';
+                card.style.visibility = 'visible';
+                card.style.filter = 'brightness(0.72)';
+                card.style.pointerEvents = 'auto';
+            } else if (diff === -1) {
+                card.style.transform = `translateX(-${spacing}px) translateZ(-${zStep}px) rotateY(${rotY}deg) scale(0.85)`;
+                card.style.zIndex = '15';
+                card.style.opacity = '0.8';
+                card.style.visibility = 'visible';
+                card.style.filter = 'brightness(0.72)';
+                card.style.pointerEvents = 'auto';
+            } else if (diff === 2) {
+                card.style.transform = `translateX(${spacing * 1.72}px) translateZ(-${zStep * 1.9}px) rotateY(-${rotY * 1.25}deg) scale(0.72)`;
+                card.style.zIndex = '10';
+                card.style.opacity = '0.42';
+                card.style.visibility = 'visible';
+                card.style.filter = 'brightness(0.52)';
+                card.style.pointerEvents = 'auto';
+            } else if (diff === -2) {
+                card.style.transform = `translateX(-${spacing * 1.72}px) translateZ(-${zStep * 1.9}px) rotateY(${rotY * 1.25}deg) scale(0.72)`;
+                card.style.zIndex = '10';
+                card.style.opacity = '0.42';
+                card.style.visibility = 'visible';
+                card.style.filter = 'brightness(0.52)';
+                card.style.pointerEvents = 'auto';
+            } else {
+                card.style.transform = `translateX(${Math.sign(diff) * spacing * 2.2}px) translateZ(-340px) rotateY(${-Math.sign(diff) * rotY * 1.4}deg) scale(0.5)`;
+                card.style.zIndex = '1';
+                card.style.opacity = '0';
+                card.style.visibility = 'hidden';
+                card.style.pointerEvents = 'none';
+            }
+        });
+
+        if (currentCounter) currentCounter.textContent = currentIndex + 1;
+    };
+
+    const goToIndex = (newIndex) => {
+        currentIndex = (newIndex + total) % total;
+        updateCoverflow();
+    };
+
+    // Điều hướng bằng nút
+    if (prevBtn)
+        prevBtn.addEventListener('click', () => {
+            goToIndex(currentIndex - 1);
+            startAutoplay();
+        });
+    if (nextBtn)
+        nextBtn.addEventListener('click', () => {
+            goToIndex(currentIndex + 1);
+            startAutoplay();
+        });
+
+    // Thao tác vuốt cảm ứng trên Mobile (Touch Swipe)
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isTouchMove = false;
+
+    if (container) {
+        container.addEventListener(
+            'touchstart',
+            (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                isTouchMove = false;
+            },
+            { passive: true },
+        );
+
+        container.addEventListener(
+            'touchmove',
+            (e) => {
+                const diffX = e.touches[0].clientX - touchStartX;
+                const diffY = e.touches[0].clientY - touchStartY;
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
+                    isTouchMove = true;
+                }
+            },
+            { passive: true },
+        );
+
+        container.addEventListener(
+            'touchend',
+            (e) => {
+                if (!isTouchMove) return;
+                const diffX = e.changedTouches[0].clientX - touchStartX;
+                if (diffX < -35) {
+                    goToIndex(currentIndex + 1);
+                } else if (diffX > 35) {
+                    goToIndex(currentIndex - 1);
+                }
+            },
+            { passive: true },
+        );
+
+        // Thao tác kéo chuột trên PC (Mouse Drag)
+        let isMouseDown = false;
+        let mouseStartX = 0;
+
+        container.addEventListener('mousedown', (e) => {
+            isMouseDown = true;
+            mouseStartX = e.clientX;
+        });
+
+        window.addEventListener('mouseup', (e) => {
+            if (!isMouseDown) return;
+            isMouseDown = false;
+            const diffX = e.clientX - mouseStartX;
+            if (diffX < -40) {
+                goToIndex(currentIndex + 1);
+            } else if (diffX > 40) {
+                goToIndex(currentIndex - 1);
+            }
+        });
+    }
+
+    // Tự động xoay chuyển êm ái mỗi 2.5 giây (chạy nhanh, sinh động hơn)
+    let autoplayTimer = null;
+    let resumeTimeout = null;
+
+    const startAutoplay = () => {
+        stopAutoplay();
+        autoplayTimer = setInterval(() => {
+            goToIndex(currentIndex + 1);
+        }, 2000);
+    };
+
+    const stopAutoplay = () => {
+        if (autoplayTimer) {
+            clearInterval(autoplayTimer);
+            autoplayTimer = null;
+        }
+        if (resumeTimeout) {
+            clearTimeout(resumeTimeout);
+            resumeTimeout = null;
+        }
+    };
+
+    if (container) {
+        container.addEventListener('mouseenter', stopAutoplay);
+        container.addEventListener('mouseleave', startAutoplay);
+        container.addEventListener('touchstart', stopAutoplay, { passive: true });
+        container.addEventListener(
+            'touchend',
+            () => {
+                stopAutoplay();
+                resumeTimeout = setTimeout(startAutoplay, 1200);
+            },
+            { passive: true },
+        );
+    }
+
+    startAutoplay();
+
+    // Xử lý thay đổi kích thước màn hình
+    window.addEventListener('resize', updateCoverflow);
+
+    // ==========================================
+    // LIGHTBOX FULLSCREEN LOGIC
+    // ==========================================
+    const showLightboxImage = (index) => {
+        if (index < 0) index = total - 1;
+        if (index >= total) index = 0;
         currentLightboxIndex = index;
-        const item = WEDDING_DATA.gallery[index];
-        lightboxImg.src = item.src;
-        lightboxCounter.textContent = `${index + 1} / ${WEDDING_DATA.gallery.length}`;
+        const item = gallery[index];
+        if (lightboxImg) lightboxImg.src = item.src;
+        if (lightboxCounter) lightboxCounter.textContent = `${index + 1} / ${total}`;
     };
 
     const openLightbox = (index) => {
-        showImage(index);
-        lightbox.classList.add('active');
+        stopAutoplay();
+        showLightboxImage(index);
+        if (lightbox) lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
     };
 
     const closeLightbox = () => {
-        lightbox.classList.remove('active');
+        if (lightbox) lightbox.classList.remove('active');
         document.body.style.overflow = '';
+        goToIndex(currentLightboxIndex);
+        startAutoplay();
     };
 
     if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
-    if (lightboxPrev)
+    if (lightboxPrev) {
         lightboxPrev.addEventListener('click', (e) => {
             e.stopPropagation();
-            showImage(currentLightboxIndex - 1);
+            showLightboxImage(currentLightboxIndex - 1);
         });
-    if (lightboxNext)
+    }
+    if (lightboxNext) {
         lightboxNext.addEventListener('click', (e) => {
             e.stopPropagation();
-            showImage(currentLightboxIndex + 1);
+            showLightboxImage(currentLightboxIndex + 1);
         });
+    }
 
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
-            closeLightbox();
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+                closeLightbox();
+            }
+        });
+    }
+
+    // Phím tắt bàn phím
+    document.addEventListener('keydown', (e) => {
+        if (lightbox && lightbox.classList.contains('active')) {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') showLightboxImage(currentLightboxIndex - 1);
+            if (e.key === 'ArrowRight') showLightboxImage(currentLightboxIndex + 1);
         }
     });
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (!lightbox.classList.contains('active')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') showImage(currentLightboxIndex - 1);
-        if (e.key === 'ArrowRight') showImage(currentLightboxIndex + 1);
-    });
-
-    // Touch swipe support on mobile
-    let touchStartX = 0;
-    lightbox.addEventListener(
-        'touchstart',
-        (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        },
-        { passive: true },
-    );
-
-    lightbox.addEventListener(
-        'touchend',
-        (e) => {
-            const diffX = e.changedTouches[0].screenX - touchStartX;
-            if (Math.abs(diffX) > 45) {
-                if (diffX > 0) showImage(currentLightboxIndex - 1);
-                else showImage(currentLightboxIndex + 1);
-            }
-        },
-        { passive: true },
-    );
+    // Khởi tạo vị trí 3D ban đầu
+    updateCoverflow();
 }
 
 /**
