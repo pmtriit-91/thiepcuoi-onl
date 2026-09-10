@@ -455,7 +455,17 @@
         <form id="rsvp-form">
           <div class="form-group">
             <label for="rsvp-name">Họ và tên quý khách</label>
-            <input type="text" id="rsvp-name" required placeholder="Nhập tên của bạn..." />
+            <input type="text" id="rsvp-name" required placeholder="Nhập họ và tên..." />
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-role">Vai vế xưng hô với Dâu &amp; Rể</label>
+            <select id="rsvp-role">
+              <option value="friend" selected>Bạn bè / Đồng nghiệp</option>
+              <option value="elder">Cô / Chú / Bác (Bề trên)</option>
+              <option value="sibling">Anh / Chị</option>
+              <option value="younger">Em / Hậu bối</option>
+            </select>
           </div>
 
           <div class="form-group">
@@ -476,7 +486,7 @@
         </form>
       </div>
 
-      <!-- 2. Thank You Card View (Phương án A - Mẫu văn 1) -->
+      <!-- 2. Thank You Card View (Phương án A - Mẫu văn 1 đa xưng hô) -->
       <div id="rsvp-success-view" class="rsvp-view-panel rsvp-thankyou-view" style="display: none;">
         <div class="thankyou-card-content">
           <div class="thankyou-icon-wrap">
@@ -489,7 +499,7 @@
 
           <div class="thankyou-couple-name">Minh Trí &amp; Cẩm Hương</div>
           
-          <h3 class="thankyou-title">
+          <h3 id="thankyou-title" class="thankyou-title">
             Chân thành cảm ơn <span id="thankyou-guest-name" class="thankyou-guest-highlight">Bạn</span>!
           </h3>
 
@@ -498,8 +508,8 @@
           </div>
 
           <div class="thankyou-message">
-            <p class="thankyou-p1">Sự hiện diện và tình cảm của bạn chính là mảnh ghép trọn vẹn nhất cho ngày vui của chúng mình.</p>
-            <p class="thankyou-p2">Tụi mình rất háo hức và mong chờ được đón tiếp bạn vào ngày 29/09 tới!</p>
+            <p id="thankyou-p1" class="thankyou-p1">Sự hiện diện và tình cảm của bạn chính là mảnh ghép trọn vẹn nhất cho ngày vui của chúng mình.</p>
+            <p id="thankyou-p2" class="thankyou-p2">Tụi mình rất háo hức và mong chờ được đón tiếp bạn vào ngày 29/09 tới!</p>
           </div>
 
           <div class="thankyou-event-badge">
@@ -520,7 +530,7 @@
           </div>
 
           <button type="button" id="btn-thankyou-close" class="btn-thankyou-action">
-            <span>Hẹn gặp lại bạn</span>
+            <span id="btn-thankyou-text">Hẹn gặp lại bạn</span>
             <span class="heart-dot">&hearts;</span>
           </button>
         </div>

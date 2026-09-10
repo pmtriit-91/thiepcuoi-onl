@@ -579,9 +579,96 @@ function initRsvpModal() {
             });
             localStorage.setItem('wedding_rsvp', JSON.stringify(responses));
 
-            // Cá nhân hóa tên khách trên tấm thiệp cảm ơn
-            if (guestNameDisplay) {
-                guestNameDisplay.textContent = guestName || 'Bạn';
+            // Lấy vai vế xưng hô
+            const roleSelect = document.getElementById('rsvp-role');
+            let role = roleSelect ? roleSelect.value : 'friend';
+            const cleanName = guestName.trim();
+            const lowerName = cleanName.toLowerCase();
+
+            // Tự động nhận diện nếu khách đã nhập sẵn danh xưng trong tên (Cô, Chú, Bác, Anh, Chị, Em...)
+            if (/^(bác|cô|chú|dì|cậu|mợ|ông|bà|thím|dượng)\b/i.test(lowerName)) {
+                role = 'elder';
+            } else if (/^(anh|chị)\b/i.test(lowerName)) {
+                role = 'sibling';
+            } else if (/^em\b/i.test(lowerName)) {
+                role = 'younger';
+            }
+
+            const titleEl = document.getElementById('thankyou-title');
+            const p1El = document.getElementById('thankyou-p1');
+            const p2El = document.getElementById('thankyou-p2');
+            const btnTextEl = document.getElementById('btn-thankyou-text');
+
+            if (role === 'elder') {
+                // Bề trên (Cô / Chú / Bác / Ông / Bà)
+                const hasElderPrefix = /^(bác|cô|chú|dì|cậu|mợ|ông|bà|thím|dượng)\b/i.test(lowerName);
+                const titleName = cleanName
+                    ? (hasElderPrefix ? cleanName : `Cô/Chú/Bác ${cleanName}`)
+                    : 'Quý Cô/Chú/Bác';
+
+                if (titleEl) {
+                    titleEl.innerHTML = `Kính gửi lời cảm ơn sâu sắc đến <span id="thankyou-guest-name" class="thankyou-guest-highlight">${titleName}</span>!`;
+                }
+                if (p1El) {
+                    p1El.textContent = 'Sự hiện diện và lời chúc phúc của Cô/Chú/Bác là niềm vinh hạnh to lớn đối với gia đình và hai cháu.';
+                }
+                if (p2El) {
+                    p2El.textContent = 'Chúng cháu rất mong chờ được đón tiếp Cô/Chú/Bác vào ngày 29/09 tới!';
+                }
+                if (btnTextEl) {
+                    btnTextEl.textContent = 'Kính chúc sức khỏe & Hẹn gặp lại';
+                }
+            } else if (role === 'sibling') {
+                // Anh / Chị
+                const hasSiblingPrefix = /^(anh|chị)\b/i.test(lowerName);
+                const titleName = cleanName
+                    ? (hasSiblingPrefix ? cleanName : `Anh/Chị ${cleanName}`)
+                    : 'Anh/Chị';
+
+                if (titleEl) {
+                    titleEl.innerHTML = `Chân thành cảm ơn <span id="thankyou-guest-name" class="thankyou-guest-highlight">${titleName}</span>!`;
+                }
+                if (p1El) {
+                    p1El.textContent = 'Sự hiện diện và tình cảm của Anh/Chị chính là niềm vui trọn vẹn nhất cho ngày cưới của hai em.';
+                }
+                if (p2El) {
+                    p2El.textContent = 'Tụi em rất háo hức và mong chờ được đón tiếp Anh/Chị vào ngày 29/09 tới!';
+                }
+                if (btnTextEl) {
+                    btnTextEl.textContent = 'Hẹn gặp lại Anh/Chị';
+                }
+            } else if (role === 'younger') {
+                // Em / Hậu bối
+                const titleName = cleanName ? cleanName.replace(/^em\s+/i, '') : 'Em';
+
+                if (titleEl) {
+                    titleEl.innerHTML = `Cảm ơn em <span id="thankyou-guest-name" class="thankyou-guest-highlight">${titleName}</span> rất nhiều!`;
+                }
+                if (p1El) {
+                    p1El.textContent = 'Sự có mặt và lời chúc của em là niềm vui lớn cho ngày cưới của anh chị.';
+                }
+                if (p2El) {
+                    p2El.textContent = 'Anh chị rất mong chờ được gặp em vào ngày 29/09 tới!';
+                }
+                if (btnTextEl) {
+                    btnTextEl.textContent = 'Hẹn gặp lại em';
+                }
+            } else {
+                // Bạn bè / Đồng nghiệp (mặc định)
+                const titleName = cleanName || 'Bạn';
+
+                if (titleEl) {
+                    titleEl.innerHTML = `Chân thành cảm ơn <span id="thankyou-guest-name" class="thankyou-guest-highlight">${titleName}</span>!`;
+                }
+                if (p1El) {
+                    p1El.textContent = 'Sự hiện diện và tình cảm của bạn chính là mảnh ghép trọn vẹn nhất cho ngày vui của chúng mình.';
+                }
+                if (p2El) {
+                    p2El.textContent = 'Tụi mình rất háo hức và mong chờ được đón tiếp bạn vào ngày 29/09 tới!';
+                }
+                if (btnTextEl) {
+                    btnTextEl.textContent = 'Hẹn gặp lại bạn';
+                }
             }
 
             // Nổ pháo giấy chúc mừng
