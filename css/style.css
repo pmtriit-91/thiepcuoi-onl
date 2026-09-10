@@ -92,20 +92,20 @@ html, body {
 .envelope-card-wrapper {
   position: relative;
   z-index: 10;
-  width: 90%;
-  max-width: 350px;
+  width: 310px;
+  max-width: 90%;
   margin: 0 auto;
 }
 
 @media (min-width: 640px) {
   .envelope-card-wrapper {
-    max-width: 440px;
+    width: 360px;
   }
 }
 
 @media (min-width: 1024px) {
   .envelope-card-wrapper {
-    max-width: 480px;
+    width: 440px;
   }
 }
 
@@ -139,50 +139,59 @@ html, body {
 .envelope-paper-card {
   position: relative;
   border-radius: 12px;
-  background: rgba(255, 250, 243, 0.98);
-  border: 1px solid rgba(81, 20, 25, 0.2);
+  background: rgba(255, 250, 243, 0.97);
+  border: 1px solid rgba(81, 20, 25, 0.18);
   box-shadow: 
-    0 25px 60px -12px rgba(0, 0, 0, 0.55),
-    0 10px 25px rgba(0, 0, 0, 0.3),
-    0 0 45px rgba(81, 20, 25, 0.25);
+    0 25px 60px -12px rgba(0, 0, 0, 0.5),
+    0 10px 25px rgba(0, 0, 0, 0.25),
+    0 0 45px rgba(81, 20, 25, 0.2);
   overflow: hidden;
   text-align: center;
-  padding: 68px 24px 36px;
+  padding: 82px 20px 42px;
 }
 
 @media (min-width: 640px) {
   .envelope-paper-card {
-    padding: 76px 36px 42px;
+    padding: 92px 28px 46px;
   }
 }
 
-/* Corner Flowers */
+/* Corner Flowers - Lấy phần đầu nhành hoa thanh mảnh nghệ thuật như mẫu gốc */
 .corner-flower {
   position: absolute;
   pointer-events: none;
-  opacity: 0.85;
-  width: 130px;
-  height: auto;
+  opacity: 0.82;
+  height: 175px;
+  width: auto;
   max-width: none;
   z-index: 2;
+  filter: drop-shadow(0 3px 6px rgba(81, 20, 25, 0.12));
 }
 
 @media (min-width: 640px) {
   .corner-flower {
-    width: 170px;
+    height: 220px;
   }
 }
 
-.corner-flower.top-left {
-  top: -12px;
-  left: -12px;
-  transform: rotate(24deg);
+@media (min-width: 1024px) {
+  .corner-flower {
+    height: 250px;
+  }
 }
 
+/* Góc trên bên trái: Nhánh hoa hướng lên mềm mại ôm góc trên, dịch nhẹ lên top */
+.corner-flower.top-left {
+  top: -10%;
+  left: -8px;
+  transform: translateX(-4%) rotate(22deg);
+}
+
+/* Góc dưới bên phải: Lật hướng nhành hoa uốn cong vào bên trong thiệp */
 .corner-flower.bottom-right {
-  bottom: -12px;
-  right: -12px;
-  transform: scaleX(-1) rotate(-24deg);
+  bottom: -4%;
+  right: -10px;
+  transform: translateX(8px) scaleX(1) rotate(-16deg);
 }
 
 /* Envelope Typography */
