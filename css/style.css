@@ -511,6 +511,155 @@ html, body {
   pointer-events: none;
 }
 
+/* ===================================================
+   AUTUMN RETRO SUNBEAMS & SHIMMER STYLES
+   =================================================== */
+
+.autumn-sunbeams {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5;
+}
+
+/* Nguồn phát ánh sáng vàng mùa thu góc trên bên phải */
+.sun-origin-glow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 215, 140, 0.45) 0%, rgba(223, 186, 99, 0.22) 35%, transparent 70%);
+  filter: blur(28px);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Các chùm tia sáng chiếu chéo từ góc phải trên xuống góc trái dưới (225deg) */
+.sunbeam-ray {
+  position: absolute;
+  top: -25%;
+  right: -25%;
+  width: 150%;
+  height: 150%;
+  pointer-events: none;
+  animation: sunbeamBreathe 8s ease-in-out infinite alternate;
+}
+
+.ray-1 {
+  background: linear-gradient(
+    220deg,
+    rgba(245, 215, 140, 0.3) 0%,
+    rgba(238, 192, 105, 0.18) 22%,
+    rgba(238, 192, 105, 0.05) 50%,
+    transparent 72%
+  );
+  clip-path: polygon(100% 0%, 76% 0%, 0% 82%, 0% 100%);
+  filter: blur(16px);
+  animation-delay: 0s;
+}
+
+.ray-2 {
+  background: linear-gradient(
+    225deg,
+    rgba(255, 228, 160, 0.26) 0%,
+    rgba(235, 185, 95, 0.14) 28%,
+    transparent 68%
+  );
+  clip-path: polygon(100% 12%, 85% 0%, 12% 100%, 32% 100%);
+  filter: blur(20px);
+  animation-delay: -3.2s;
+}
+
+.ray-3 {
+  background: linear-gradient(
+    215deg,
+    rgba(245, 210, 130, 0.22) 0%,
+    rgba(223, 175, 85, 0.12) 32%,
+    transparent 62%
+  );
+  clip-path: polygon(100% 32%, 93% 18%, 28% 100%, 52% 100%);
+  filter: blur(14px);
+  animation-delay: -5.5s;
+}
+
+.ray-4 {
+  background: linear-gradient(
+    228deg,
+    rgba(250, 220, 145, 0.18) 0%,
+    rgba(230, 180, 90, 0.08) 35%,
+    transparent 65%
+  );
+  clip-path: polygon(100% 50%, 98% 38%, 45% 100%, 65% 100%);
+  filter: blur(18px);
+  animation-delay: -1.8s;
+}
+
+/* Các hạt bụi nắng vàng ấm bay lơ lửng trong luồng ánh sáng */
+.dust-mote {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 248, 225, 0.95) 0%, rgba(223, 186, 99, 0.45) 55%, transparent 100%);
+  pointer-events: none;
+  filter: drop-shadow(0 0 3px rgba(223, 186, 99, 0.6));
+  animation: moteFloat 11s ease-in-out infinite;
+}
+
+.mote-1 { top: 22%; right: 28%; width: 5px; height: 5px; animation-delay: 0s; }
+.mote-2 { top: 38%; right: 42%; width: 4px; height: 4px; animation-delay: -3s; }
+.mote-3 { top: 52%; right: 58%; width: 6px; height: 6px; animation-delay: -6s; }
+.mote-4 { top: 32%; right: 18%; width: 3px; height: 3px; animation-delay: -8.5s; }
+.mote-5 { top: 65%; right: 70%; width: 4px; height: 4px; animation-delay: -4s; }
+
+/* Hiệu ứng lướt sáng ánh kim vàng qua chữ (Shimmering Text) */
+.shimmer-text {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(
+    125deg,
+    #511419 0%,
+    #511419 36%,
+    #dfba63 47%,
+    #fff9ed 50%,
+    #dfba63 53%,
+    #511419 64%,
+    #511419 100%
+  );
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: textGoldSweep 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  filter: drop-shadow(0 2px 4px rgba(81, 20, 25, 0.08));
+}
+
+/* Đốm sao vàng lấp lánh nhẹ ở đầu/cuối chữ */
+.text-sparkle {
+  position: absolute;
+  font-size: 14px;
+  line-height: 1;
+  color: #dfba63;
+  pointer-events: none;
+  text-shadow: 0 0 6px rgba(223, 186, 99, 0.85);
+  animation: sparkleTwinkle 4.5s ease-in-out infinite;
+  -webkit-text-fill-color: initial;
+}
+
+.sparkle-1 {
+  top: -2px;
+  right: -8px;
+  animation-delay: 0.8s;
+}
+
+.sparkle-2 {
+  bottom: 8px;
+  left: -8px;
+  animation-delay: 2.5s;
+}
+
 
 /* ===================================================
    4. CEREMONY CARD BLOCKS (RED SECTIONS)
