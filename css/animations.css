@@ -59,10 +59,10 @@
 /* Floating animation with slight rotation */
 @keyframes drFloatRotate {
   0%, 100% {
-    transform: translateY(0) rotate(12deg);
+    transform: translateY(0) rotate(7deg);
   }
   50% {
-    transform: translateY(-10px) rotate(12deg);
+    transform: translateY(-8px) rotate(7deg);
   }
 }
 

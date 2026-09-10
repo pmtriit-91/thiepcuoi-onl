@@ -380,10 +380,10 @@ html, body {
   position: relative;
   z-index: 10;
   display: flex;
-  flex-col: column;
+  flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 46px 20px 36px;
+  padding: 48px 20px 32px;
   overflow: hidden;
 }
 
@@ -394,7 +394,7 @@ html, body {
   transform: translateX(-50%);
   width: 150%;
   max-width: none;
-  opacity: 0.1;
+  opacity: 0.12;
   pointer-events: none;
   z-index: 0;
 }
@@ -403,12 +403,12 @@ html, body {
   position: relative;
   z-index: 10;
   font-family: var(--font-garamond);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: 0.22em;
-  color: var(--primary-deep);
+  letter-spacing: 0.28em;
+  color: var(--primary);
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin-bottom: 48px;
 }
 
 /* Polaroid in Envelope */
@@ -418,7 +418,7 @@ html, body {
   width: 82%;
   max-width: 320px;
   aspect-ratio: 333 / 384;
-  margin: 0 auto 32px;
+  margin: 0 auto 28px;
 }
 
 .stack-envelope-bg {
@@ -485,15 +485,18 @@ html, body {
   align-items: center;
   gap: 16px;
   width: 100%;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
 .couple-name {
-  font-family: var(--font-heading);
+  font-family: "MonteCarlo", "Great Vibes", cursive;
   color: var(--primary);
-  font-size: clamp(36px, 9.5vw, 48px);
-  line-height: 1.1;
-  font-weight: 500;
+  font-size: clamp(44px, 11vw, 56px);
+  line-height: 1.2;
+  font-weight: 400;
   letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
 }
 
 .couple-ampersand-big {
@@ -502,7 +505,7 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: var(--font-script);
-  font-size: clamp(86px, 25vw, 115px);
+  font-size: clamp(96px, 25vw, 125px);
   line-height: 1;
   color: rgba(81, 20, 25, 0.16);
   pointer-events: none;
