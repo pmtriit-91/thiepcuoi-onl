@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="vi" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+  <title>Minh Trí &amp; Cẩm Hương | Thiệp Cưới Online</title>
+  <meta name="description" content="Thân mời quý khách đến dự lễ cưới của Minh Trí &amp; Cẩm Hương | Thứ Ba, 29 tháng 9, 2026 | Nhà hàng tiệc cưới Rose Palace 268 Điện Biên Phủ, Phường Thuận Hóa, Thành Phố Huế" />
+  <meta name="author" content="Minh Trí &amp; Cẩm Hương" />
+  
+  <!-- OpenGraph Meta Tags for Zalo, Facebook, Messenger -->
+  <meta property="og:title" content="Minh Trí &amp; Cẩm Hương — Thiệp Cưới Online" />
+  <meta property="og:description" content="Thân mời quý khách đến dự lễ cưới của Minh Trí &amp; Cẩm Hương | Thứ Ba, 29/09/2026 | Nhà hàng tiệc cưới Rose Palace Huế" />
+  <meta property="og:image" content="assets/images/og-preview.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="vi_VN" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Minh Trí &amp; Cẩm Hương — Thiệp Cưới Online" />
+  <meta name="twitter:description" content="Thân mời quý khách đến dự lễ cưới của Minh Trí &amp; Cẩm Hương | Thứ Ba, 29/09/2026 | Nhà hàng tiệc cưới Rose Palace Huế" />
+  <meta name="twitter:image" content="assets/images/og-preview.jpg" />
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#511419" />
+  
+  <!-- Google Fonts Preconnect & Load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=The+Nautigal:wght@400;700&family=Viaoda+Libre&family=Pattaya&display=swap" rel="stylesheet" />
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Background Music Element -->
+  <audio id="bg-audio" loop preload="auto">
+    <source src="assets/audio/beautiful-in-white.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Floating Audio Button -->
+  <button id="floating-audio" class="floating-audio-btn" title="Bật / Tắt nhạc nền" aria-label="Bật / Tắt nhạc nền">
+    <svg class="disc" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/>
+    </svg>
+  </button>
+
+  <!-- ===================================================
+       1. ENVELOPE LANDING SCREEN
+       =================================================== -->
+  <div id="envelope-landing">
+    <!-- Floating Ambient Hearts -->
+    <div class="ambient-hearts-container"></div>
+
+    <!-- Envelope Paper Card -->
+    <div class="envelope-card-wrapper">
+      <!-- Pulsing Red Wax Seal Button -->
+      <div id="wax-seal-btn" class="wax-seal" title="Bấm để mở thiệp">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+        </svg>
+      </div>
+
+      <div class="envelope-paper-card">
+        <!-- Corner Floral Decorations -->
+        <img src="assets/decor/flower2-decoration.webp" alt="" class="corner-flower top-left" aria-hidden="true" />
+        <img src="assets/decor/flower2-decoration.webp" alt="" class="corner-flower bottom-right" aria-hidden="true" />
+
+        <h1 class="envelope-title">
+          <span>Minh Trí</span>
+          <span class="envelope-ampersand">&amp;</span>
+          <span>Cẩm Hương</span>
+        </h1>
+
+        <div class="envelope-divider">
+          <div class="line"></div>
+          <span class="symbol">❦</span>
+          <div class="line reverse"></div>
+        </div>
+
+        <div class="envelope-date">29 tháng 9, 2026</div>
+        <div class="envelope-invitation-text">Thân Mời</div>
+
+        <!-- Shimmering Open Button -->
+        <button type="button" id="btn-open-envelope" class="btn-open-invite">
+          <span>Mở thiệp</span>
+          <div class="shine-sweep"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===================================================
+       2. MAIN OPENED INVITATION CARD
+       =================================================== -->
+  <main id="main-card">
+    <!-- Paper Silk Blend Texture -->
+    <div class="paper-texture-overlay"></div>
+
+    <!-- Header Section with Polaroid in Envelope -->
+    <header class="card-header">
+      <img src="assets/decor/castle-background.webp" alt="" class="castle-watermark" aria-hidden="true" />
+      <div class="header-wedding-tag">Happy Wedding</div>
+
+      <!-- Polaroid Photo nestled in Envelope -->
+      <div class="envelope-photo-stack">
+        <img src="assets/decor/envelope-background.webp" alt="" class="stack-envelope-bg" aria-hidden="true" />
+        
+        <div class="stack-photo-frame">
+          <div class="stack-photo-inner">
+            <img src="assets/images/hero.jpg" alt="Minh Trí &amp; Cẩm Hương" />
+          </div>
+        </div>
+
+        <img src="assets/decor/flower2-decoration.webp" alt="" class="stack-decor-flower" aria-hidden="true" />
+        <img src="assets/decor/envelope-cover.webp" alt="" class="stack-envelope-cover" aria-hidden="true" />
+      </div>
+
+      <!-- Couple Names in Viaoda Libre -->
+      <div class="header-couple-names">
+        <div class="couple-name">Minh Trí</div>
+        <span class="couple-ampersand-big">&amp;</span>
+        <div class="couple-name">Cẩm Hương</div>
+      </div>
+    </header>
+
+
+    <!-- ===================================================
+         3. SECTION: LỄ THÀNH HÔN (TƯ GIA)
+         =================================================== -->
+    <section class="ceremony-section">
+      <img src="assets/decor/flower2-decoration.webp" alt="" class="section-floating-flower right" aria-hidden="true" />
+      
+      <div class="ceremony-box">
+        <img src="assets/decor/paper.webp" alt="" class="paper-blend" aria-hidden="true" />
+        
+        <div class="ceremony-content">
+          <div class="ceremony-title">LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI TƯ GIA</div>
+
+          <!-- Family Information -->
+          <div class="family-grid">
+            <div class="family-side">
+              <span class="parent-role">Nhà Trai</span>
+              <span class="parent-name">Phạm Văn Thành</span>
+              <span class="parent-name">Đặng Thị Thanh</span>
+              <span class="parent-address">57 Tam Thai, Phường Thuận Hóa, TP Huế</span>
+            </div>
+
+            <div class="family-vertical-divider"></div>
+
+            <div class="family-side">
+              <span class="parent-role">Nhà Gái</span>
+              <span class="parent-name">Lê An</span>
+              <span class="parent-name">Phan Thị Tố Nga</span>
+              <span class="parent-address">7/62 Nguyễn Gia Thiều, Phường Phú Xuân, TP Huế</span>
+            </div>
+          </div>
+
+          <div class="ceremony-invitation-msg">
+            Trân trọng báo tin Lễ Thành Hôn của con chúng tôi
+          </div>
+
+          <!-- Couple Presentation -->
+          <div class="ceremony-couple-block">
+            <div class="couple-entry">
+              <span class="name">Phạm Minh Trí</span>
+              <span class="sub">Út Nam</span>
+            </div>
+            <div class="amp">&amp;</div>
+            <div class="couple-entry">
+              <span class="name">Lê Thị Cẩm Hương</span>
+              <span class="sub">Tân Nương</span>
+            </div>
+          </div>
+
+          <!-- Ceremony Date and Time -->
+          <div class="date-time-box">
+            <div class="time-item">
+              <span class="label">Vào lúc</span>
+              <span class="value">09:00</span>
+            </div>
+            <div class="time-divider"></div>
+            <div class="time-item">
+              <span class="label">Thứ Ba</span>
+              <span class="big-day-number">29</span>
+            </div>
+            <div class="time-divider"></div>
+            <div class="time-item">
+              <span class="label">Tháng 09</span>
+              <span class="value">2026</span>
+            </div>
+          </div>
+
+          <div class="lunar-date-text">(Nhằm ngày 19 tháng 8 năm Bính Ngọ)</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================
+         4. SECTION: ALBUM ẢNH CƯỚI (19 ẢNH STUDIO GỐC)
+         =================================================== -->
+    <section class="gallery-section">
+      <img src="assets/decor/castle-background.webp" alt="" class="castle-watermark" style="top: -5%; opacity: 0.08;" aria-hidden="true" />
+      <h2 class="gallery-title">Album Ảnh Cưới</h2>
+
+      <div id="gallery-grid" class="gallery-grid">
+        <!-- Rendered dynamically from wedding-data.js -->
+      </div>
+    </section>
+
+
+    <!-- ===================================================
+         5. SECTION: TIỆC CƯỚI (RECEPTION) & COUNTDOWN
+         =================================================== -->
+    <section class="ceremony-section">
+      <img src="assets/decor/flower2-decoration.webp" alt="" class="section-floating-flower left" aria-hidden="true" />
+
+      <div class="ceremony-box">
+        <img src="assets/decor/paper.webp" alt="" class="paper-blend" aria-hidden="true" />
+
+        <div class="ceremony-content">
+          <div class="ceremony-title">TIỆC CƯỚI</div>
+
+          <!-- Reception Date Badge -->
+          <div class="date-time-box">
+            <div class="time-item">
+              <span class="label">Đón khách</span>
+              <span class="value">11:00</span>
+            </div>
+            <div class="time-divider"></div>
+            <div class="time-item">
+              <span class="label">Khai tiệc</span>
+              <span class="value">11:30</span>
+            </div>
+            <div class="time-divider"></div>
+            <div class="time-item">
+              <span class="label">Thứ Ba</span>
+              <span class="big-day-number">29</span>
+            </div>
+            <div class="time-divider"></div>
+            <div class="time-item">
+              <span class="label">Tháng 09</span>
+              <span class="value">2026</span>
+            </div>
+          </div>
+
+          <!-- Mini Calendar Widget for September 2026 -->
+          <div class="mini-calendar-wrapper">
+            <div class="calendar-header-title">September 2026</div>
+            <table class="calendar-table">
+              <thead>
+                <tr>
+                  <th>CN</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+                </tr>
+                <tr>
+                  <td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td>
+                </tr>
+                <tr>
+                  <td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td>
+                </tr>
+                <tr>
+                  <td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td>
+                </tr>
+                <tr>
+                  <td>27</td><td>28</td><td class="active-day">29</td><td>30</td><td></td><td></td><td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Countdown Timer -->
+          <div class="countdown-container">
+            <div class="countdown-box">
+              <span id="countdown-days" class="countdown-val">00</span>
+              <span class="countdown-lbl">Ngày</span>
+            </div>
+            <div class="countdown-box">
+              <span id="countdown-hours" class="countdown-val">00</span>
+              <span class="countdown-lbl">Giờ</span>
+            </div>
+            <div class="countdown-box">
+              <span id="countdown-mins" class="countdown-val">00</span>
+              <span class="countdown-lbl">Phút</span>
+            </div>
+            <div class="countdown-box">
+              <span id="countdown-secs" class="countdown-val">00</span>
+              <span class="countdown-lbl">Giây</span>
+            </div>
+          </div>
+
+          <!-- Venue & Directions -->
+          <div class="venue-details">
+            <div class="venue-name">Nhà hàng tiệc cưới Rose Palace</div>
+            <div class="venue-address">268 Điện Biên Phủ, Phường Thuận Hóa, Thành Phố Huế</div>
+            
+            <a href="https://maps.google.com/?q=Nhà+hàng+tiệc+cưới+Rose+Palace+268+Điện+Biên+Phủ+Huế" target="_blank" rel="noopener" class="btn-map-link">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              <span>Chỉ Đường (Google Maps)</span>
+            </a>
+          </div>
+
+          <!-- RSVP Button -->
+          <button type="button" id="btn-open-rsvp" class="btn-rsvp-open">
+            Xác Nhận Tham Dự
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================
+         6. SECTION: HỘP MỪNG CƯỚI (VIETQR)
+         =================================================== -->
+    <section class="ceremony-section">
+      <div class="ceremony-box">
+        <img src="assets/decor/paper.webp" alt="" class="paper-blend" aria-hidden="true" />
+
+        <div class="ceremony-content">
+          <div class="ceremony-title">HỘP MỪNG CƯỚI</div>
+          <p style="font-size: 13px; color: var(--cream-muted); max-width: 320px;">
+            Sự hiện diện và lời chúc phúc của quý khách là món quà quý giá nhất đối với chúng tôi.
+          </p>
+
+          <div class="gift-card-box">
+            <!-- VietQR Code Image -->
+            <img src="assets/decor/vietqr.png" alt="Mã VietQR Mừng Cưới" class="gift-qr-image" />
+
+            <div class="gift-bank-info">
+              <div class="bank-name-tag">Ngân Hàng BIDV</div>
+              <div class="bank-account-num">5560991488</div>
+              <div class="bank-account-holder">Phạm Minh Trí</div>
+            </div>
+
+            <button type="button" id="btn-copy-stk" class="btn-copy-stk">
+              <svg viewBox="0 0 24 24">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+              <span>Sao chép số tài khoản</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================
+         7. THANK YOU & FOOTER
+         =================================================== -->
+    <footer class="thank-you-section">
+      <div class="thank-you-title">Thank You!</div>
+      <p class="thank-you-text">
+        Cảm ơn quý khách đã dành tình cảm, thời gian và những lời chúc tốt đẹp nhất để cùng chung vui với gia đình chúng tôi trong ngày trọng đại này!
+      </p>
+      <div class="thank-you-couple-sign">Minh Trí &amp; Cẩm Hương</div>
+      <div class="footer-copy">Forever &amp; Always • 29.09.2026</div>
+    </footer>
+  </main>
+
+
+  <!-- ===================================================
+       8. LIGHTBOX MODAL (XEM ẢNH FULLSCREEN)
+       =================================================== -->
+  <div id="lightbox">
+    <button id="lightbox-close" class="lightbox-close" aria-label="Đóng">&times;</button>
+    <button id="lightbox-prev" class="lightbox-nav-btn prev" aria-label="Ảnh trước">&#10094;</button>
+    
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Ảnh cưới phóng to" />
+    </div>
+
+    <button id="lightbox-next" class="lightbox-nav-btn next" aria-label="Ảnh sau">&#10095;</button>
+    <div id="lightbox-counter" class="lightbox-counter">1 / 19</div>
+  </div>
+
+
+  <!-- ===================================================
+       9. RSVP MODAL
+       =================================================== -->
+  <div id="rsvp-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <button id="rsvp-modal-close" class="modal-close-btn" aria-label="Đóng">&times;</button>
+      <h3 class="modal-title">Xác Nhận Tham Dự</h3>
+
+      <form id="rsvp-form">
+        <div class="form-group">
+          <label for="rsvp-name">Họ và tên quý khách</label>
+          <input type="text" id="rsvp-name" required placeholder="Nhập tên của bạn..." />
+        </div>
+
+        <div class="form-group">
+          <label for="rsvp-count">Số lượng người tham dự</label>
+          <select id="rsvp-count">
+            <option value="1">1 người (Đi một mình)</option>
+            <option value="2">2 người (Đi cùng người thương / bạn)</option>
+            <option value="3">3 người trở lên (Cùng gia đình)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="rsvp-wish">Lời chúc gửi tới Cô Dâu &amp; Chú Rể</label>
+          <textarea id="rsvp-wish" rows="3" placeholder="Gửi gắm lời chúc phúc ấm áp..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-form-submit">Gửi xác nhận</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg"></div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/wedding-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

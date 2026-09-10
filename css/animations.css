@@ -1,0 +1,108 @@
+/* ===================================================
+   KEYFRAMES & ANIMATIONS FOR MINIMALISM DARK RED THEME
+   =================================================== */
+
+/* Ambient falling floating hearts */
+@keyframes ambient-fall {
+  0% {
+    transform: translateY(-8vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.65;
+  }
+  50% {
+    transform: translateY(48vh) translateX(var(--sway, 20px)) rotate(180deg);
+    opacity: 0.75;
+  }
+  92% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(105vh) translateX(calc(var(--sway, 20px) * -0.5)) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Wax seal pulsing heartbeat */
+@keyframes seal-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 4px 20px rgba(81, 20, 25, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 8px 32px rgba(168, 50, 59, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Button light sweep shine */
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  45%, 100% {
+    left: 140%;
+  }
+}
+
+/* Gentle floating for polaroid photo and decor flowers */
+@keyframes drFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Floating animation with slight rotation */
+@keyframes drFloatRotate {
+  0%, 100% {
+    transform: translateY(0) rotate(12deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(12deg);
+  }
+}
+
+/* Music disc rotating animation */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Music pulse soundwaves */
+@keyframes sound-wave {
+  0%, 100% {
+    height: 4px;
+  }
+  50% {
+    height: 16px;
+  }
+}
+
+/* Fade in for modals & elements */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
