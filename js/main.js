@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 8. SUNBEAM TYNDALL DUST MOTES (CANVAS)
     initSunbeamDust();
+
+    // 9. CELEBRATION CONFETTI CANNON (CANVAS)
+    initConfettiCannon();
 });
 
 /**
@@ -518,6 +521,9 @@ function initRsvpModal() {
     if (!modal) return;
 
     const openModal = () => {
+        if (typeof fireConfettiCannon === 'function') {
+            fireConfettiCannon();
+        }
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     };
@@ -549,6 +555,10 @@ function initRsvpModal() {
                 date: new Date().toISOString(),
             });
             localStorage.setItem('wedding_rsvp', JSON.stringify(responses));
+
+            if (typeof fireConfettiCannon === 'function') {
+                fireConfettiCannon();
+            }
 
             closeModal();
             form.reset();
@@ -730,4 +740,178 @@ function initSunbeamDust() {
 
     // Vẽ frame đầu tiên đồng bộ
     draw();
+}
+
+/**
+ * Pháo giấy đám cưới ăn mừng (Celebration Confetti Cannon)
+ * Bắn chéo từ góc phải bên dưới màn hình nổ chéo lên giữa màn hình
+ */
+let fireConfettiCannon = null;
+
+function initConfettiCannon() {
+    const canvas = document.getElementById('confetti-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let particles = [];
+    let animationId = null;
+
+    function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Bảng màu tiệc cưới hoàng gia sang trọng: Vàng đồng, Ánh kim, Đỏ rượu vang, Hồng phấn, Trắng ngọc trai
+    const colors = [
+        '#d4af37', // Vàng hoàng gia
+        '#ffd700', // Vàng ánh kim
+        '#c9a24a', // Vàng đồng
+        '#7a1f26', // Đỏ rượu vang
+        '#a8323b', // Đỏ đô
+        '#e06d75', // Hồng cánh sen
+        '#fffaf0', // Trắng ngọc trai
+        '#f5e6ca', // Vàng kem nhũ
+        '#c0392b'  // Đỏ rực rỡ
+    ];
+
+    function drawHeart(c, x, y, size) {
+        c.beginPath();
+        const topCurveHeight = size * 0.3;
+        c.moveTo(x, y + topCurveHeight);
+        c.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+        c.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + size, x, y + size);
+        c.bezierCurveTo(x, y + size, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+        c.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+        c.closePath();
+        c.fill();
+    }
+
+    function createParticle(burstOriginX, burstOriginY) {
+        // Góc bắn: Bắn từ góc dưới bên phải màn hình nổ chéo lên (khoảng 218 độ +/- 22 độ)
+        // 180 độ là sang trái, 270 độ là thẳng đứng lên => 218 độ hướng thẳng tâm màn hình
+        const baseAngleDeg = 218;
+        const spreadDeg = 44; // Độ xòe pháo hoa
+        const angleDeg = baseAngleDeg + (Math.random() - 0.5) * spreadDeg;
+        const angleRad = (angleDeg * Math.PI) / 180;
+
+        // Tốc độ phóng ban đầu cực mạnh tạo cảm giác nổ pháo giấy thật
+        const speed = 19 + Math.random() * 25; // 19 -> 44 px/frame
+
+        const isHeart = Math.random() < 0.20; // 20% hạt trái tim tình yêu
+        const isRibbon = !isHeart && Math.random() < 0.45; // 45% dải ruy băng dài
+
+        return {
+            x: burstOriginX,
+            y: burstOriginY,
+            vx: Math.cos(angleRad) * speed,
+            vy: Math.sin(angleRad) * speed,
+            drag: 0.954 + Math.random() * 0.015, // Lực cản gió
+            gravity: 0.38 + Math.random() * 0.16, // Trọng lực rơi
+            w: isRibbon ? 6 + Math.random() * 6 : 8 + Math.random() * 6,
+            h: isRibbon ? 14 + Math.random() * 14 : 8 + Math.random() * 6,
+            size: 10 + Math.random() * 8, // dùng cho trái tim
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * Math.PI * 2,
+            rotationSpeed: (Math.random() - 0.5) * 0.28,
+            tiltAngle: Math.random() * Math.PI * 2,
+            tiltSpeed: 0.08 + Math.random() * 0.14, // Tốc độ lật cánh 3D
+            wobble: Math.random() * Math.PI * 2,
+            wobbleSpeed: 0.04 + Math.random() * 0.06,
+            alpha: 1,
+            decay: 0.005 + Math.random() * 0.007, // Tốc độ mờ dần
+            isHeart: isHeart,
+            isRibbon: isRibbon
+        };
+    }
+
+    function burst(count = 75) {
+        // Tọa độ bắn: Ngay tại góc dưới bên phải màn hình
+        const originX = width + 10;
+        const originY = height + 10;
+        for (let i = 0; i < count; i++) {
+            particles.push(createParticle(originX, originY));
+        }
+
+        if (!animationId) {
+            animate();
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+
+            // Vật lý chuyển động: Vận tốc, cản gió và trọng lực
+            p.vx *= p.drag;
+            p.vy = p.vy * p.drag + p.gravity;
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Chao đảo tự nhiên trong không khí
+            p.wobble += p.wobbleSpeed;
+            p.x += Math.sin(p.wobble) * 0.8;
+
+            // Xoay và lật mặt 3D
+            p.rotation += p.rotationSpeed;
+            p.tiltAngle += p.tiltSpeed;
+
+            // Giảm độ rõ nét
+            p.alpha -= p.decay;
+
+            // Hạt ra khỏi màn hình hoặc đã mờ hẳn
+            if (p.alpha <= 0 || p.y > height + 60 || p.x < -80) {
+                particles.splice(i, 1);
+                continue;
+            }
+
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.alpha);
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rotation);
+            // Lật mặt phẳng 3D giấy bay
+            ctx.scale(Math.cos(p.tiltAngle), 1);
+
+            ctx.fillStyle = p.color;
+
+            if (p.isHeart) {
+                drawHeart(ctx, -p.size / 2, -p.size / 2, p.size);
+            } else {
+                ctx.beginPath();
+                if (ctx.roundRect) {
+                    ctx.roundRect(-p.w / 2, -p.h / 2, p.w, p.h, 2);
+                } else {
+                    ctx.rect(-p.w / 2, -p.h / 2, p.w, p.h);
+                }
+                ctx.fill();
+            }
+
+            ctx.restore();
+        }
+
+        if (particles.length > 0) {
+            animationId = requestAnimationFrame(animate);
+        } else {
+            animationId = null;
+            ctx.clearRect(0, 0, width, height);
+        }
+    }
+
+    // Bắn 2 đợt liên tiếp (Double Burst) để tạo cảm giác nổ pháo hoa hoành tráng
+    fireConfettiCannon = function() {
+        burst(75);
+        setTimeout(() => burst(50), 140);
+    };
+
+    window.fireConfettiCannon = fireConfettiCannon;
 }
