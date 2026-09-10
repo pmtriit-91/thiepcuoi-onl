@@ -627,6 +627,16 @@ html, body {
 .mote-5 { top: 62%; right: 68%; width: 6px; height: 6px; animation-delay: -4s; }
 .mote-6 { top: 72%; right: 80%; width: 4px; height: 4px; animation-delay: -1s; }
 
+/* Canvas chùm bụi nắng & hạt sao cát li ti (Tyndall Sunbeam Dust Motes) */
+.sunbeam-dust-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 21;
+}
+
 /* Dải kim tuyến lấp lánh chạy dọc bên trong luồng sáng vàng */
 .glitter-stream {
   position: absolute;

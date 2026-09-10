@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 7. RSVP MODAL
   initRsvpModal();
+
+  // 8. SUNBEAM TYNDALL DUST MOTES (CANVAS)
+  initSunbeamDust();
 });
 
 /**
@@ -332,3 +335,125 @@ function initRsvpModal() {
     });
   }
 }
+
+/**
+ * Chùm bụi nắng vàng & hạt sao li ti (Tyndall Sunbeam Dust Motes)
+ * Dựa trên hiệu ứng hạt vi mô lơ lửng trong luồng sáng tự nhiên
+ */
+function initSunbeamDust() {
+  const canvas = document.getElementById("sunbeam-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let width = 0;
+  let height = 0;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width || canvas.offsetWidth || (canvas.parentElement ? canvas.parentElement.offsetWidth : 390);
+    const h = rect.height || canvas.offsetHeight || (canvas.parentElement ? canvas.parentElement.offsetHeight : 600);
+    width = canvas.width = Math.round(w * dpr);
+    height = canvas.height = Math.round(h * dpr);
+  }
+
+  resize();
+  window.addEventListener("resize", resize);
+  if (window.ResizeObserver && canvas.parentElement) {
+    new ResizeObserver(resize).observe(canvas.parentElement);
+  }
+
+  const MOTES_COUNT = 160;
+  const motes = [];
+
+  function createMote(initial = false) {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Trục giữa luồng sáng: chạy từ góc trên phải (x ~ 88%, y ~ 0%) xuống góc dưới trái (x ~ 23%, y ~ 100%)
+    const t = initial ? Math.random() : -0.05;
+    const centerX = (0.88 - t * 0.65) * width;
+    const centerY = t * height;
+    // Độ rộng luồng sáng: phía trên hẹp hơn (65px), phía dưới mở rộng dần (160px)
+    const beamWidth = (65 + t * 95) * dpr;
+    const offset = (Math.random() - 0.5) * beamWidth;
+
+    // Vector vuông góc với tia 226deg
+    const perpX = offset * 0.707;
+    const perpY = offset * 0.707;
+
+    return {
+      x: centerX + perpX,
+      y: centerY + perpY,
+      // 85% là hạt tinh thể siêu li ti (0.6px - 1.5px), 15% là hạt bokeh mềm (1.8px - 2.8px)
+      radius: (Math.random() < 0.85 ? 0.6 + Math.random() * 0.9 : 1.8 + Math.random() * 1.0) * dpr,
+      // Vận tốc trôi nhẹ nhàng theo luồng sáng chéo
+      vx: -(0.25 + Math.random() * 0.35) * dpr,
+      vy: (0.35 + Math.random() * 0.50) * dpr,
+      // Dao động tự nhiên (Brownian motion)
+      wobbleAngle: Math.random() * Math.PI * 2,
+      wobbleSpeed: 0.015 + Math.random() * 0.03,
+      wobbleAmp: (0.2 + Math.random() * 0.4) * dpr,
+      // Nhấp nháy óng ánh
+      twinklePhase: Math.random() * Math.PI * 2,
+      twinkleSpeed: 0.02 + Math.random() * 0.05,
+      baseAlpha: 0.35 + Math.random() * 0.60,
+      isGolden: Math.random() < 0.65
+    };
+  }
+
+  for (let i = 0; i < MOTES_COUNT; i++) {
+    motes.push(createMote(true));
+  }
+
+  function draw() {
+    if (width === 0 || height === 0) {
+      resize();
+    }
+    ctx.clearRect(0, 0, width, height);
+    ctx.globalCompositeOperation = "lighter"; // Hạt sáng cộng hưởng óng ánh
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    for (let i = 0; i < motes.length; i++) {
+      const m = motes[i];
+
+      // Di chuyển với chuyển động Brown
+      m.wobbleAngle += m.wobbleSpeed;
+      m.x += m.vx + Math.cos(m.wobbleAngle) * m.wobbleAmp;
+      m.y += m.vy + Math.sin(m.wobbleAngle) * (m.wobbleAmp * 0.5);
+
+      // Tái sinh khi trôi ra ngoài biên
+      if (m.y > height + 20 || m.x < -30) {
+        Object.assign(m, createMote(false));
+      }
+
+      // Độ sáng lấp lánh óng ánh
+      m.twinklePhase += m.twinkleSpeed;
+      const alpha = m.baseAlpha * (0.55 + 0.45 * Math.sin(m.twinklePhase));
+
+      if (m.radius > 1.6 * dpr) {
+        // Hạt có quầng sáng mềm mại (hạt cát bắt sáng)
+        const glow = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.radius * 2);
+        glow.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+        glow.addColorStop(
+          0.5,
+          m.isGolden ? `rgba(255, 225, 120, ${alpha * 0.75})` : `rgba(255, 245, 225, ${alpha * 0.75})`
+        );
+        glow.addColorStop(1, "rgba(245, 185, 70, 0)");
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.radius * 2, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        // Tiểu tinh thể siêu nhỏ sắc nét
+        ctx.fillStyle = m.isGolden ? `rgba(255, 230, 140, ${alpha})` : `rgba(255, 255, 255, ${alpha})`;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  requestAnimationFrame(draw);
+}
+
