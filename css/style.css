@@ -196,28 +196,28 @@ html, body {
 
 /* Envelope Typography */
 .envelope-title {
-  font-family: var(--font-heading);
+  font-family: "MonteCarlo", "Great Vibes", cursive;
   color: var(--primary);
-  font-size: 32px;
-  line-height: 1.15;
-  font-weight: 500;
-  margin-bottom: 8px;
+  font-size: 38px;
+  line-height: 1.2;
+  font-weight: 400;
+  margin-bottom: 6px;
 }
 
 @media (min-width: 640px) {
   .envelope-title {
-    font-size: 40px;
+    font-size: 46px;
   }
 }
 
 .envelope-ampersand {
   display: block;
-  font-family: var(--font-accent);
-  font-size: 20px;
+  font-family: "Great Vibes", cursive;
+  font-size: 26px;
   line-height: 1;
   color: var(--primary);
   opacity: 0.85;
-  margin: 2px 0;
+  margin: 3px 0;
 }
 
 .envelope-divider {
