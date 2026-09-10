@@ -362,40 +362,57 @@ function initSunbeamDust() {
     new ResizeObserver(resize).observe(canvas.parentElement);
   }
 
-  const MOTES_COUNT = 160;
+  // 240 hạt bụi nắng li ti dày dặn tạo cảm giác huyền ảo như ảnh mẫu
+  const MOTES_COUNT = 240;
   const motes = [];
 
   function createMote(initial = false) {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    // Trục giữa luồng sáng: chạy từ góc trên phải (x ~ 88%, y ~ 0%) xuống góc dưới trái (x ~ 23%, y ~ 100%)
-    const t = initial ? Math.random() : -0.05;
-    const centerX = (0.88 - t * 0.65) * width;
-    const centerY = t * height;
-    // Độ rộng luồng sáng: phía trên hẹp hơn (65px), phía dưới mở rộng dần (160px)
-    const beamWidth = (65 + t * 95) * dpr;
-    const offset = (Math.random() - 0.5) * beamWidth;
+    // Mật độ dày đặc hơn ở nửa trên (nơi chùm tia sáng bắt đầu)
+    const rawT = initial ? Math.random() : -0.05;
+    const t = initial ? Math.pow(rawT, 1.25) : -0.05;
 
-    // Vector vuông góc với tia 226deg
+    // Trục giữa luồng sáng: chạy từ góc trên phải (x ~ 88%, y ~ 0%) xuống góc dưới trái (x ~ 22%, y ~ 100%)
+    const centerX = (0.90 - t * 0.70) * width;
+    const centerY = t * height;
+
+    // Độ rộng luồng sáng: phía trên hẹp hơn (55px), phía dưới mở rộng dần (170px)
+    const beamWidth = (55 + t * 115) * dpr;
+    // Phân phối Gauss (hạt tập trung nhiều ở lõi chùm sáng)
+    const u = Math.random() + Math.random() - 1;
+    const offset = u * (beamWidth * 0.55);
+
     const perpX = offset * 0.707;
     const perpY = offset * 0.707;
+
+    // 3 cấp độ hạt: 75% siêu li ti (0.6 - 1.4px), 18% lấp lánh (1.5 - 2.2px), 7% bokeh mờ (2.5 - 4.0px)
+    const typeRoll = Math.random();
+    let radius, type;
+    if (typeRoll < 0.75) {
+      type = "micro";
+      radius = (0.6 + Math.random() * 0.8) * dpr;
+    } else if (typeRoll < 0.93) {
+      type = "glint";
+      radius = (1.5 + Math.random() * 0.8) * dpr;
+    } else {
+      type = "bokeh";
+      radius = (2.6 + Math.random() * 1.5) * dpr;
+    }
 
     return {
       x: centerX + perpX,
       y: centerY + perpY,
-      // 85% là hạt tinh thể siêu li ti (0.6px - 1.5px), 15% là hạt bokeh mềm (1.8px - 2.8px)
-      radius: (Math.random() < 0.85 ? 0.6 + Math.random() * 0.9 : 1.8 + Math.random() * 1.0) * dpr,
-      // Vận tốc trôi nhẹ nhàng theo luồng sáng chéo
-      vx: -(0.25 + Math.random() * 0.35) * dpr,
-      vy: (0.35 + Math.random() * 0.50) * dpr,
-      // Dao động tự nhiên (Brownian motion)
+      radius,
+      type,
+      vx: -(0.20 + Math.random() * 0.35) * dpr,
+      vy: (0.35 + Math.random() * 0.55) * dpr,
       wobbleAngle: Math.random() * Math.PI * 2,
-      wobbleSpeed: 0.015 + Math.random() * 0.03,
-      wobbleAmp: (0.2 + Math.random() * 0.4) * dpr,
-      // Nhấp nháy óng ánh
+      wobbleSpeed: 0.015 + Math.random() * 0.035,
+      wobbleAmp: (0.15 + Math.random() * 0.35) * dpr,
       twinklePhase: Math.random() * Math.PI * 2,
-      twinkleSpeed: 0.02 + Math.random() * 0.05,
-      baseAlpha: 0.35 + Math.random() * 0.60,
-      isGolden: Math.random() < 0.65
+      twinkleSpeed: 0.025 + Math.random() * 0.06,
+      baseAlpha: 0.45 + Math.random() * 0.55,
+      colorTone: Math.random() // tỉ lệ ánh vàng ấm vs trắng sáng
     };
   }
 
@@ -408,14 +425,13 @@ function initSunbeamDust() {
       resize();
     }
     ctx.clearRect(0, 0, width, height);
-    ctx.globalCompositeOperation = "lighter"; // Hạt sáng cộng hưởng óng ánh
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     for (let i = 0; i < motes.length; i++) {
       const m = motes[i];
 
-      // Di chuyển với chuyển động Brown
+      // Chuyển động Brownian mượt mà lơ lửng
       m.wobbleAngle += m.wobbleSpeed;
       m.x += m.vx + Math.cos(m.wobbleAngle) * m.wobbleAmp;
       m.y += m.vy + Math.sin(m.wobbleAngle) * (m.wobbleAmp * 0.5);
@@ -425,28 +441,66 @@ function initSunbeamDust() {
         Object.assign(m, createMote(false));
       }
 
-      // Độ sáng lấp lánh óng ánh
+      // Nhịp nhấp nháy óng ánh
       m.twinklePhase += m.twinkleSpeed;
-      const alpha = m.baseAlpha * (0.55 + 0.45 * Math.sin(m.twinklePhase));
+      const twinkle = 0.55 + 0.45 * Math.sin(m.twinklePhase);
+      const alpha = m.baseAlpha * twinkle;
 
-      if (m.radius > 1.6 * dpr) {
-        // Hạt có quầng sáng mềm mại (hạt cát bắt sáng)
-        const glow = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.radius * 2);
-        glow.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
-        glow.addColorStop(
-          0.5,
-          m.isGolden ? `rgba(255, 225, 120, ${alpha * 0.75})` : `rgba(255, 245, 225, ${alpha * 0.75})`
-        );
-        glow.addColorStop(1, "rgba(245, 185, 70, 0)");
+      if (m.type === "bokeh") {
+        // Hạt bokeh mờ ảo tạo chiều sâu quang học
+        const glow = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.radius);
+        glow.addColorStop(0, `rgba(255, 245, 210, ${alpha * 0.7})`);
+        glow.addColorStop(0.4, `rgba(240, 185, 70, ${alpha * 0.4})`);
+        glow.addColorStop(1, "rgba(220, 150, 40, 0)");
         ctx.fillStyle = glow;
         ctx.beginPath();
-        ctx.arc(m.x, m.y, m.radius * 2, 0, Math.PI * 2);
-        ctx.fill();
-      } else {
-        // Tiểu tinh thể siêu nhỏ sắc nét
-        ctx.fillStyle = m.isGolden ? `rgba(255, 230, 140, ${alpha})` : `rgba(255, 255, 255, ${alpha})`;
-        ctx.beginPath();
         ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (m.type === "glint") {
+        // Hạt lấp lánh có quầng hào quang + nhân trắng sáng
+        const glow = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.radius * 2.2);
+        glow.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.95})`);
+        glow.addColorStop(0.35, `rgba(255, 220, 100, ${alpha * 0.8})`);
+        glow.addColorStop(0.7, `rgba(230, 160, 40, ${alpha * 0.35})`);
+        glow.addColorStop(1, "rgba(210, 130, 20, 0)");
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.radius * 2.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Nhân hạt sáng óng
+        ctx.fillStyle = `rgba(255, 250, 235, ${alpha * 0.95})`;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.radius * 0.7, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Tia chớp 4 cánh siêu mảnh khi đạt đỉnh lấp lánh
+        if (twinkle > 0.85) {
+          const flareLen = m.radius * 2.4;
+          ctx.strokeStyle = `rgba(255, 248, 220, ${(twinkle - 0.85) * 6 * alpha})`;
+          ctx.lineWidth = 0.8 * dpr;
+          ctx.beginPath();
+          ctx.moveTo(m.x - flareLen, m.y);
+          ctx.lineTo(m.x + flareLen, m.y);
+          ctx.moveTo(m.x, m.y - flareLen);
+          ctx.lineTo(m.x, m.y + flareLen);
+          ctx.stroke();
+        }
+      } else {
+        // Hạt cát siêu li ti (0.6 - 1.4px) - hàng trăm hạt tinh thể ánh kim
+        const r = m.radius;
+        // Viền ấm nhẹ giúp hạt hiển thị sắc nét trên cả nền kem lẫn nền tối
+        ctx.fillStyle = `rgba(200, 140, 30, ${alpha * 0.6})`;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, r + 0.4 * dpr, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle =
+          m.colorTone > 0.4
+            ? `rgba(255, 235, 140, ${alpha * 0.95})`
+            : `rgba(255, 255, 255, ${alpha * 0.95})`;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, r, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -454,6 +508,8 @@ function initSunbeamDust() {
     requestAnimationFrame(draw);
   }
 
-  requestAnimationFrame(draw);
+  // Vẽ frame đầu tiên đồng bộ
+  draw();
 }
+
 
