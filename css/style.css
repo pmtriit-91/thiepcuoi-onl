@@ -672,6 +672,127 @@ html, body {
 .stream-p12 { top: 72%; right: 44%; width: 4px; height: 4px; animation-delay: -3.8s; }
 .stream-p13 { top: 78%; right: 60%; font-size: 10px; animation-delay: -5.1s; }
 
+/* ===================================================
+   ĐÔI BƯỚM UYÊN ƯƠNG BAY VỜN (Romantic 3D Butterflies)
+   =================================================== */
+.butterflies-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 22;
+  overflow: hidden;
+  perspective: 900px;
+}
+
+.butterfly {
+  position: absolute;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 4px 8px rgba(50, 10, 15, 0.35)) drop-shadow(0 0 8px rgba(255, 220, 100, 0.65));
+}
+
+.butterfly-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.wing {
+  position: absolute;
+  top: 0;
+  width: 26px;
+  height: 34px;
+  transform-style: preserve-3d;
+}
+
+.wing-left {
+  right: 50%;
+  transform-origin: right 50%;
+  animation: wingFlapLeft 0.26s ease-in-out infinite alternate;
+}
+
+.wing-right {
+  left: 50%;
+  transform-origin: left 50%;
+  animation: wingFlapRight 0.26s ease-in-out infinite alternate;
+}
+
+.wing svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.torso {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 20px;
+  background: linear-gradient(to bottom, #2d0a0e, #5a141b 40%, #c99c48 90%);
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.torso::before, .torso::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  width: 1.5px;
+  height: 8px;
+  background: #3a0d12;
+  border-radius: 1px;
+}
+
+.torso::before {
+  left: -2px;
+  transform: rotate(-30deg);
+}
+
+.torso::after {
+  right: -2px;
+  transform: rotate(30deg);
+}
+
+.butterfly-trail {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fffbe6;
+  box-shadow: 0 0 8px 3px rgba(255, 215, 90, 0.9);
+  animation: sparkleTwinkle 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Bướm 1 (Chàng - Hoàng kim): bay lượn dẫn lối */
+.butterfly-1 {
+  width: 38px;
+  height: 38px;
+  top: 28%;
+  left: 15%;
+  animation: butterflyFlight1 12s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Bướm 2 (Nàng - Hồng ngọc): nhỏ hơn, quấn quýt bên bướm 1 */
+.butterfly-2 {
+  width: 30px;
+  height: 30px;
+  top: 30%;
+  left: 17%;
+  animation: butterflyFlight2 12s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation-delay: -1.8s;
+}
+
+.butterfly-2 .wing-left,
+.butterfly-2 .wing-right {
+  animation-duration: 0.22s;
+}
+
 /* Kim tuyến & Ánh sao lấp lánh nhẹ nhàng (Delicate Starlight Glitter) */
 .glitter-container {
   position: absolute;
