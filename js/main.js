@@ -711,7 +711,8 @@ function initRsvpModal() {
             const guestNameInput = document.getElementById('rsvp-name');
             const guestName = (guestNameInput ? guestNameInput.value : '').trim();
             const count = document.getElementById('rsvp-count').value;
-            const wish = document.getElementById('rsvp-wish').value;
+            const wishInput = document.getElementById('rsvp-wish');
+            const wish = (wishInput ? wishInput.value : '').trim();
 
             const responses = JSON.parse(localStorage.getItem('wedding_rsvp') || '[]');
             responses.push({
@@ -736,6 +737,30 @@ function initRsvpModal() {
             } else if (/^em\b/i.test(lowerName)) {
                 role = 'younger';
             }
+
+            // Chuyển đổi vai vế sang dạng văn bản trang trọng để ghi vào Sheet
+            let roleText = 'Bạn bè / Đồng nghiệp';
+            if (role === 'elder') roleText = 'Cô / Chú / Bác (Bề trên)';
+            else if (role === 'sibling') roleText = 'Anh / Chị';
+            else if (role === 'younger') roleText = 'Em / Hậu bối';
+
+            // Gửi dữ liệu tự động đồng bộ lên Google Sheets & bắn email thông báo tới Gmail
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwIORda95Pls9Eem12uu2E8QTEwSaMs0Z-OklHOXj12e-1Qh_GCD9N4cYxN-RRHuZg/exec';
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: cleanName || 'Khách mời',
+                    role: roleText,
+                    count: count,
+                    wish: wish,
+                }),
+            }).catch((err) => {
+                console.error('Lỗi gửi RSVP Google Sheets:', err);
+            });
 
             const titleEl = document.getElementById('thankyou-title');
             const p1El = document.getElementById('thankyou-p1');
