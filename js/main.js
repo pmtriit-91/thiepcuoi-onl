@@ -75,48 +75,64 @@ function initAmbientHearts() {
  */
 let autoScrollAnimId = null;
 let isAutoScrolling = false;
+let autoScrollDelayTimer = null;
 
 function startAutoScrollOnOpen() {
-    // Đợi 1.2s để phong bì mở hoàn tất và khách ngắm nhìn phần bìa thiệp (Save the date & ảnh dâu rể)
-    setTimeout(() => {
-        if (isAutoScrolling) return;
+    // Hủy các hẹn giờ hoặc hiệu ứng đang chạy trước đó (nếu có)
+    if (autoScrollDelayTimer) {
+        clearTimeout(autoScrollDelayTimer);
+        autoScrollDelayTimer = null;
+    }
+    if (isAutoScrolling) {
+        if (autoScrollAnimId) cancelAnimationFrame(autoScrollAnimId);
+        isAutoScrolling = false;
+    }
+
+    const cancelDelayOrScroll = () => {
+        if (autoScrollDelayTimer) {
+            clearTimeout(autoScrollDelayTimer);
+            autoScrollDelayTimer = null;
+        }
+        if (isAutoScrolling) {
+            isAutoScrolling = false;
+            if (autoScrollAnimId) {
+                cancelAnimationFrame(autoScrollAnimId);
+                autoScrollAnimId = null;
+            }
+        }
+        window.removeEventListener('wheel', cancelDelayOrScroll);
+        window.removeEventListener('touchstart', cancelDelayOrScroll);
+        window.removeEventListener('pointerdown', cancelDelayOrScroll);
+        window.removeEventListener('keydown', cancelDelayOrScroll);
+    };
+
+    // Lắng nghe tương tác của khách ngay từ đầu: nếu khách tự cuộn thì hủy tự động
+    window.addEventListener('wheel', cancelDelayOrScroll, { passive: true });
+    window.addEventListener('touchstart', cancelDelayOrScroll, { passive: true });
+    window.addEventListener('pointerdown', cancelDelayOrScroll, { passive: true });
+    window.addEventListener('keydown', cancelDelayOrScroll, { passive: true });
+
+    // Đứng yên ở khung hình đầu tiên 4.5 giây (4500ms) để khách chậm rãi ngắm bức ảnh thiệp mở đầu
+    autoScrollDelayTimer = setTimeout(() => {
+        autoScrollDelayTimer = null;
         isAutoScrolling = true;
 
         const scrollSpeed = 1.3; // Tốc độ cuộn êm ái, trôi mượt vừa mắt (~80px/s)
         let currentScrollY = window.scrollY;
         let lastSetScrollY = currentScrollY;
 
-        const stopAutoScroll = () => {
-            if (!isAutoScrolling) return;
-            isAutoScrolling = false;
-            if (autoScrollAnimId) {
-                cancelAnimationFrame(autoScrollAnimId);
-                autoScrollAnimId = null;
-            }
-            window.removeEventListener('wheel', stopAutoScroll);
-            window.removeEventListener('touchstart', stopAutoScroll);
-            window.removeEventListener('pointerdown', stopAutoScroll);
-            window.removeEventListener('keydown', stopAutoScroll);
-        };
-
-        // Lắng nghe tương tác chủ động của khách để nhường quyền điều khiển ngay lập tức
-        window.addEventListener('wheel', stopAutoScroll, { passive: true });
-        window.addEventListener('touchstart', stopAutoScroll, { passive: true });
-        window.addEventListener('pointerdown', stopAutoScroll, { passive: true });
-        window.addEventListener('keydown', stopAutoScroll, { passive: true });
-
         const step = () => {
             if (!isAutoScrolling) return;
 
             // Nếu khách chủ động cuộn làm lệch tọa độ so với hệ thống đang tự cuộn
             if (Math.abs(window.scrollY - lastSetScrollY) > 6) {
-                stopAutoScroll();
+                cancelDelayOrScroll();
                 return;
             }
 
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             if (window.scrollY >= maxScroll - 5) {
-                stopAutoScroll();
+                cancelDelayOrScroll();
                 return;
             }
 
@@ -128,7 +144,7 @@ function startAutoScrollOnOpen() {
         };
 
         autoScrollAnimId = requestAnimationFrame(step);
-    }, 1200);
+    }, 4500);
 }
 
 function initEnvelopeOpener() {
