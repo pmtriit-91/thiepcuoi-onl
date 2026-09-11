@@ -74,7 +74,14 @@ const WEDDING_DATA = {
     { id: 21, src: "assets/images/gallery/photo_21.jpg", thumb: "assets/images/gallery-thumbs/thumb_21.jpg" },
     { id: 22, src: "assets/images/gallery/photo_22.jpg", thumb: "assets/images/gallery-thumbs/thumb_22.jpg" },
     { id: 23, src: "assets/images/gallery/photo_23.jpg", thumb: "assets/images/gallery-thumbs/thumb_23.jpg" },
-    { id: 24, src: "assets/images/gallery/photo_24.jpg", thumb: "assets/images/gallery-thumbs/thumb_24.jpg" }
+    { id: 24, src: "assets/images/gallery/photo_24.jpg", thumb: "assets/images/gallery-thumbs/thumb_24.jpg" },
+    { id: 25, src: "assets/images/gallery/photo_25.jpg", thumb: "assets/images/gallery-thumbs/thumb_25.jpg" },
+    { id: 26, src: "assets/images/gallery/photo_26.jpg", thumb: "assets/images/gallery-thumbs/thumb_26.jpg" },
+    { id: 27, src: "assets/images/gallery/photo_27.jpg", thumb: "assets/images/gallery-thumbs/thumb_27.jpg" },
+    { id: 28, src: "assets/images/gallery/photo_28.jpg", thumb: "assets/images/gallery-thumbs/thumb_28.jpg" },
+    { id: 29, src: "assets/images/gallery/photo_29.jpg", thumb: "assets/images/gallery-thumbs/thumb_29.jpg" },
+    { id: 30, src: "assets/images/gallery/photo_30.jpg", thumb: "assets/images/gallery-thumbs/thumb_30.jpg" },
+    { id: 31, src: "assets/images/gallery/photo_31.jpg", thumb: "assets/images/gallery-thumbs/thumb_31.jpg" }
   ],
   music: {
     title: "Beautiful In White",
