@@ -41,8 +41,11 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Vault Protection Module -->
+  <script src="js/security.min.js"></script>
 </head>
-<body>
+<body oncontextmenu="return false;" ondragstart="return false;">
 
   <!-- Background Music Element -->
   <audio id="bg-audio" loop preload="auto">
@@ -612,8 +615,8 @@
   <!-- Toast Notification -->
   <div class="toast-msg"></div>
 
-  <!-- JavaScript Modules -->
-  <script src="js/wedding-data.js"></script>
-  <script src="js/main.js"></script>
+  <!-- JavaScript Modules (Protected) -->
+  <script src="js/wedding-data.min.js"></script>
+  <script src="js/main.min.js"></script>
 </body>
 </html>

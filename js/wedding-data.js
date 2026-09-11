@@ -89,3 +89,7 @@ const WEDDING_DATA = {
     file: "assets/audio/beautiful-in-white.mp3"
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.WEDDING_DATA = WEDDING_DATA;
+}

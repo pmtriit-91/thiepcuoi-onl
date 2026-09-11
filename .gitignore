@@ -3,3 +3,4 @@ photos/
 invitation_data.json
 .vercel
 .env*
+node_modules/

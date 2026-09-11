@@ -1,0 +1,12 @@
+{
+  "name": "thiepcuoi-onl",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Thiệp cưới online Minh Trí & Cẩm Hương",
+  "scripts": {
+    "protect": "node scripts/build-protected.js"
+  },
+  "dependencies": {
+    "javascript-obfuscator": "^5.7.0"
+  }
+}
