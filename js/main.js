@@ -147,6 +147,66 @@ function startAutoScrollOnOpen() {
     }, 4500);
 }
 
+/**
+ * Chuyển cảnh rèm nhung hoàng gia & Quote điện ảnh dẫn lối
+ */
+let curtainTimer1 = null;
+let curtainTimer2 = null;
+let curtainTimer3 = null;
+
+function playCurtainTransition(onComplete) {
+    const curtain = document.getElementById('curtain-transition');
+    if (!curtain) {
+        if (typeof onComplete === 'function') onComplete();
+        return;
+    }
+
+    // Reset trạng thái ban đầu
+    curtain.classList.remove('finished', 'fade-quote', 'open-curtains');
+    curtain.classList.add('active');
+
+    let isHandled = false;
+    const finishCurtain = () => {
+        if (isHandled) return;
+        isHandled = true;
+        curtain.classList.add('finished');
+        if (typeof onComplete === 'function') onComplete();
+    };
+
+    // Cho phép khách click/chạm nhẹ để mở rèm ngay lập tức nếu muốn xem nhanh
+    const skipToOpen = () => {
+        if (curtain.classList.contains('open-curtains')) return;
+        clearTimeout(curtainTimer1);
+        clearTimeout(curtainTimer2);
+        clearTimeout(curtainTimer3);
+
+        curtain.classList.add('fade-quote');
+        curtain.classList.add('open-curtains');
+
+        curtainTimer3 = setTimeout(() => {
+            finishCurtain();
+        }, 1300);
+    };
+
+    curtain.addEventListener('click', skipToOpen, { once: true });
+
+    // Bước 1: Khách đọc Quote trong 2.3s
+    curtainTimer1 = setTimeout(() => {
+        curtain.classList.add('fade-quote');
+
+        // Bước 2: Sau khi Quote mờ dần (0.5s), hai cánh rèm nhung từ từ tách mở sang 2 bên
+        curtainTimer2 = setTimeout(() => {
+            curtain.classList.add('open-curtains');
+
+            // Bước 3: Rèm mở hoàn tất (1.35s), ẩn màn rèm và bắt đầu nhịp đếm 4.5s ngắm ảnh thiệp
+            curtainTimer3 = setTimeout(() => {
+                curtain.removeEventListener('click', skipToOpen);
+                finishCurtain();
+            }, 1350);
+        }, 500);
+    }, 2300);
+}
+
 function initEnvelopeOpener() {
     const envelope = document.getElementById('envelope-landing');
     const openBtn = document.getElementById('btn-open-envelope');
@@ -173,8 +233,11 @@ function initEnvelopeOpener() {
         // Đảm bảo đưa lên đầu thiệp
         window.scrollTo(0, 0);
 
-        // Kích hoạt hiệu ứng tự cuộn mượt mà từ trên xuống
-        startAutoScrollOnOpen();
+        // Kích hoạt màn chuyển cảnh rèm nhung & quote điện ảnh
+        playCurtainTransition(() => {
+            // Sau khi rèm mở hoàn tất, khách ngắm ảnh bìa thiệp 4.5s rồi mới bắt đầu tự cuộn
+            startAutoScrollOnOpen();
+        });
     };
 
     if (openBtn) openBtn.addEventListener('click', openCard);
