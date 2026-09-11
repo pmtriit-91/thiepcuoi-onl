@@ -311,32 +311,160 @@ html, body {
   bottom: 24px;
   right: 20px;
   z-index: 999;
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: var(--primary);
+  background: #141112;
   border: 2px solid var(--gold);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 12px rgba(201, 162, 74, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: var(--gold);
-  transition: transform 0.2s, background 0.2s;
+  padding: 0;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .floating-audio-btn:hover {
-  transform: scale(1.08);
+  transform: scale(1.1);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6), 0 0 16px rgba(201, 162, 74, 0.55);
 }
 
-.floating-audio-btn.playing svg.disc {
-  animation: spin-slow 4s linear infinite;
+.floating-audio-btn:active {
+  transform: scale(0.92);
 }
 
-.floating-audio-btn svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
+/* Vòng sóng âm vàng kim lan tỏa xung quanh khi đang phát nhạc */
+.floating-audio-btn.playing::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(223, 186, 99, 0.7);
+  pointer-events: none;
+  animation: audioPulseRing 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* Mặt đĩa than với rãnh tròn đồng tâm (Vinyl Grooves) */
+.vinyl-record {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: 
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      #131313 0px,
+      #131313 2px,
+      #242424 2.5px,
+      #131313 3px
+    );
+  overflow: hidden;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.85);
+  animation: spin-slow 3.8s linear infinite;
+  animation-play-state: paused; /* Tự động dừng khi pause nhạc */
+}
+
+/* Khi đang phát nhạc: đĩa than quay mượt mà */
+.floating-audio-btn.playing .vinyl-record {
+  animation-play-state: running;
+}
+
+/* Vệt sáng khúc xạ cánh quạt quét qua mặt đĩa (Sheen reflection) */
+.vinyl-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 45deg,
+    rgba(255, 255, 255, 0.22) 0deg,
+    transparent 45deg,
+    rgba(255, 255, 255, 0.25) 90deg,
+    transparent 135deg,
+    rgba(255, 255, 255, 0.22) 180deg,
+    transparent 225deg,
+    rgba(255, 255, 255, 0.25) 270deg,
+    transparent 315deg,
+    rgba(255, 255, 255, 0.22) 360deg
+  );
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Nhãn tem đĩa ở tâm (Vinyl Label) */
+.vinyl-label {
+  position: relative;
+  z-index: 2;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #8b1e26 0%, #511419 65%, #380a0e 100%);
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Lỗ trục tâm đĩa (Spindle hole) */
+.vinyl-spindle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #111;
+  border: 0.5px solid rgba(255, 235, 175, 0.8);
+  z-index: 4;
+}
+
+/* Icon nốt nhạc vàng kim ở tem đĩa */
+.vinyl-label svg.music-note-icon {
+  width: 13px;
+  height: 13px;
+  fill: var(--gold-light);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8));
+  position: relative;
+  z-index: 3;
+}
+
+/* Cụm nốt nhạc bay lơ lửng khi phát nhạc */
+.music-notes-fly {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  pointer-events: none;
+  z-index: 10;
+  display: none;
+}
+
+.floating-audio-btn.playing .music-notes-fly {
+  display: block;
+}
+
+.fly-note {
+  position: absolute;
+  color: var(--gold-light);
+  font-size: 14px;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(223, 186, 99, 0.8), 0 1px 2px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  user-select: none;
+}
+
+.fly-note.note-1 {
+  animation: noteFly1 2.6s ease-out infinite;
+}
+
+.fly-note.note-2 {
+  animation: noteFly2 2.6s ease-out 0.85s infinite;
+}
+
+.fly-note.note-3 {
+  animation: noteFly3 2.6s ease-out 1.7s infinite;
 }
 
 
