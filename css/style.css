@@ -1556,14 +1556,28 @@ html, body {
   padding: 4px 0;
   text-align: center;
   font-weight: 500;
+  vertical-align: middle;
 }
 
 .calendar-table td.active-day {
+  padding: 1px 0;
+  vertical-align: middle;
+  background: transparent;
+  color: var(--cream-light);
+}
+
+.calendar-table td.active-day .day-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
   background-color: var(--primary);
   color: var(--cream-light);
-  border-radius: 50%;
   font-weight: 700;
-  box-shadow: 0 2px 6px rgba(81, 20, 25, 0.4);
+  box-shadow: 0 2px 6px rgba(81, 20, 25, 0.45);
+  line-height: 1;
 }
 
 
@@ -2128,6 +2142,7 @@ html, body {
   border: 1px solid rgba(81, 20, 25, 0.15);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
+  object-fit: contain;
 }
 
 .gift-bank-info {
