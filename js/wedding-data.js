@@ -69,7 +69,12 @@ const WEDDING_DATA = {
     { id: 16, src: "assets/images/gallery/photo_16.jpg", thumb: "assets/images/gallery-thumbs/thumb_16.jpg" },
     { id: 17, src: "assets/images/gallery/photo_17.jpg", thumb: "assets/images/gallery-thumbs/thumb_17.jpg" },
     { id: 18, src: "assets/images/gallery/photo_18.jpg", thumb: "assets/images/gallery-thumbs/thumb_18.jpg" },
-    { id: 19, src: "assets/images/gallery/photo_19.jpg", thumb: "assets/images/gallery-thumbs/thumb_19.jpg" }
+    { id: 19, src: "assets/images/gallery/photo_19.jpg", thumb: "assets/images/gallery-thumbs/thumb_19.jpg" },
+    { id: 20, src: "assets/images/gallery/photo_20.jpg", thumb: "assets/images/gallery-thumbs/thumb_20.jpg" },
+    { id: 21, src: "assets/images/gallery/photo_21.jpg", thumb: "assets/images/gallery-thumbs/thumb_21.jpg" },
+    { id: 22, src: "assets/images/gallery/photo_22.jpg", thumb: "assets/images/gallery-thumbs/thumb_22.jpg" },
+    { id: 23, src: "assets/images/gallery/photo_23.jpg", thumb: "assets/images/gallery-thumbs/thumb_23.jpg" },
+    { id: 24, src: "assets/images/gallery/photo_24.jpg", thumb: "assets/images/gallery-thumbs/thumb_24.jpg" }
   ],
   music: {
     title: "Beautiful In White",

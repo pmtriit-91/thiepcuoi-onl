@@ -11,7 +11,7 @@ Mã nguồn thiệp cưới online độc lập (Single Page Application) phong 
   - Con dấu sáp đỏ dập nổi nhịp tim (`seal-pulse`).
   - Nút **"Mở thiệp"** vệt sáng quét ngang (`shine`).
 - **Âm nhạc tự động:** Ca khúc *Beautiful In White* (Shane Filan) tự động phát khi mở bì thư, kèm nút xoay đĩa nhạc nổi bật/tắt tùy ý.
-- **Bộ ảnh cưới chất lượng cao:** 19 bức ảnh cưới studio HD sắc nét kèm trình xem ảnh phóng to toàn màn hình (Lightbox).
+- **Bộ ảnh cưới chất lượng cao:** 24 bức ảnh cưới studio HD sắc nét kèm trình xem ảnh phóng to toàn màn hình (Lightbox).
 - **Lịch trình & Đếm ngược:**
   - Lễ Thành Hôn tại Tư Gia (09:00 - Thứ Ba, 29/09/2026).
   - Tiệc Cưới tại Nhà hàng tiệc cưới Rose Palace Huế (Đón khách 11:00 | Khai tiệc 11:30 - Thứ Ba, 29/09/2026).

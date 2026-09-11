@@ -1,3 +1,5 @@
 .DS_Store
 photos/
 invitation_data.json
+.vercel
+.env*
