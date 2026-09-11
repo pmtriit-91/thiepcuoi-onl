@@ -1,53 +1,58 @@
 /**
- * Dữ liệu cấu hình thiệp cưới Minh Trí & Cẩm Hương
+ * Dữ liệu cấu hình thiệp cưới Cẩm Hương & Minh Trí (Nhà Gái - Lễ Vu Quy)
  */
 const WEDDING_DATA = {
   couple: {
+    bride: {
+      holyName: "Maria",
+      name: "Maria Lê Thị Cẩm Hương",
+      fullName: "Lê Thị Cẩm Hương",
+      shortName: "Cẩm Hương",
+      role: "Út Nữ",
+      father: "Anrê Lê An",
+      mother: "Maria Phan Thị Tố Nga",
+      address: "7 Kiệt 62 Nguyễn Gia Thiều, Phường Phú Xuân, Thành Phố Huế"
+    },
     groom: {
-      name: "Phạm Minh Trí",
+      holyName: "Phaolô",
+      name: "Phaolô Phạm Minh Trí",
+      fullName: "Phạm Minh Trí",
       shortName: "Minh Trí",
       role: "Út Nam",
       father: "Phạm Văn Thành",
       mother: "Đặng Thị Thanh",
       address: "57 Tam Thai, Phường Thuận Hóa, Thành Phố Huế"
-    },
-    bride: {
-      name: "Lê Thị Cẩm Hương",
-      shortName: "Cẩm Hương",
-      role: "",
-      father: "Lê An",
-      mother: "Phan Thị Tố Nga",
-      address: "7/62 Nguyễn Gia Thiều, Phường Phú Xuân, Thành Phố Huế"
     }
   },
   ceremony: {
-    title: "LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI TƯ GIA",
-    time: "09:00",
-    dayOfWeek: "Thứ Ba",
-    date: "29",
+    title: "THÁNH LỄ HÔN PHỐI ĐƯỢC CỬ HÀNH TẠI",
+    time: "18:00",
+    dayOfWeek: "Thứ Bảy",
+    date: "26",
     month: "09",
     year: "2026",
-    lunarDate: "Ngày 19 Tháng 8 Năm Bính Ngọ",
-    location: "Tư Gia"
+    lunarDate: "Ngày 16 Tháng 8 Năm Bính Ngọ",
+    location: "Nhà Thờ Giáo Xứ Phú Hậu"
   },
   reception: {
     title: "TIỆC CƯỚI",
     welcomeTime: "11:00",
     partyTime: "11:30",
-    dayOfWeek: "Thứ Ba",
-    date: "29",
+    dayOfWeek: "Chủ Nhật",
+    date: "27",
     month: "09",
     year: "2026",
-    isoDateTime: "2026-09-29T11:30:00+07:00",
-    venue: "Nhà hàng tiệc cưới Rose Palace",
-    address: "268 Điện Biên Phủ, Phường Thuận Hóa, Thành Phố Huế",
-    mapUrl: "https://maps.google.com/?q=268+Điện+Biên+Phủ,+Phường+Thuận+Hóa,+Thành+Phố+Huế"
+    isoDateTime: "2026-09-27T11:30:00+07:00",
+    venue: "Nhà Hàng Hoa Hồng (Sảnh 5)",
+    address: "176 Nguyễn Chí Thanh, Phường Phú Xuân, Thành Phố Huế",
+    mapUrl: "https://maps.google.com/?q=176+Nguyễn+Chí+Thanh,+Phường+Phú+Xuân,+Thành+Phố+Huế"
   },
   bank: {
     bankName: "BIDV",
     bankBin: "970418",
-    accountNumber: "5560991488",
-    accountName: "Phạm Minh Trí",
+    accountNumber: "2224014833",
+    accountName: "Lê Thị Cẩm Hương",
+    branch: "BIDV - PGD Duy Tân",
     qrImage: "assets/decor/vietqr.png"
   },
   gallery: [

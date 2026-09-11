@@ -1,0 +1,4 @@
+photos/
+.DS_Store
+invitation_data.json
+*.py
