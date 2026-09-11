@@ -745,7 +745,7 @@ function initRsvpModal() {
             else if (role === 'younger') roleText = 'Em / Hậu bối';
 
             // Gửi dữ liệu tự động đồng bộ lên Google Sheets & bắn email thông báo tới Gmail
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwIORda95Pls9Eem12uu2E8QTEwSaMs0Z-OklHOXj12e-1Qh_GCD9N4cYxN-RRHuZg/exec';
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwi4VG1bSsomQVVR43-Du2hQN0LXM3PalU3o4nGYQ3cpJWCQ3Q8_ZmjPvVRFULJMM1n/exec';
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
