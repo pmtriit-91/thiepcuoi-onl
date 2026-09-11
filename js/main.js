@@ -71,8 +71,66 @@ function initAmbientHearts() {
 }
 
 /**
- * Xử lý mở thiệp mời
+ * Xử lý mở thiệp mời và tự động cuộn từ trên xuống
  */
+let autoScrollAnimId = null;
+let isAutoScrolling = false;
+
+function startAutoScrollOnOpen() {
+    // Đợi 1.2s để phong bì mở hoàn tất và khách ngắm nhìn phần bìa thiệp (Save the date & ảnh dâu rể)
+    setTimeout(() => {
+        if (isAutoScrolling) return;
+        isAutoScrolling = true;
+
+        const scrollSpeed = 1.3; // Tốc độ cuộn êm ái, trôi mượt vừa mắt (~80px/s)
+        let currentScrollY = window.scrollY;
+        let lastSetScrollY = currentScrollY;
+
+        const stopAutoScroll = () => {
+            if (!isAutoScrolling) return;
+            isAutoScrolling = false;
+            if (autoScrollAnimId) {
+                cancelAnimationFrame(autoScrollAnimId);
+                autoScrollAnimId = null;
+            }
+            window.removeEventListener('wheel', stopAutoScroll);
+            window.removeEventListener('touchstart', stopAutoScroll);
+            window.removeEventListener('pointerdown', stopAutoScroll);
+            window.removeEventListener('keydown', stopAutoScroll);
+        };
+
+        // Lắng nghe tương tác chủ động của khách để nhường quyền điều khiển ngay lập tức
+        window.addEventListener('wheel', stopAutoScroll, { passive: true });
+        window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+        window.addEventListener('pointerdown', stopAutoScroll, { passive: true });
+        window.addEventListener('keydown', stopAutoScroll, { passive: true });
+
+        const step = () => {
+            if (!isAutoScrolling) return;
+
+            // Nếu khách chủ động cuộn làm lệch tọa độ so với hệ thống đang tự cuộn
+            if (Math.abs(window.scrollY - lastSetScrollY) > 6) {
+                stopAutoScroll();
+                return;
+            }
+
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            if (window.scrollY >= maxScroll - 5) {
+                stopAutoScroll();
+                return;
+            }
+
+            currentScrollY += scrollSpeed;
+            lastSetScrollY = Math.round(currentScrollY);
+            window.scrollTo(0, lastSetScrollY);
+
+            autoScrollAnimId = requestAnimationFrame(step);
+        };
+
+        autoScrollAnimId = requestAnimationFrame(step);
+    }, 1200);
+}
+
 function initEnvelopeOpener() {
     const envelope = document.getElementById('envelope-landing');
     const openBtn = document.getElementById('btn-open-envelope');
@@ -96,8 +154,11 @@ function initEnvelopeOpener() {
                 });
         }
 
-        // Scroll nhẹ lên đầu thiệp
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Đảm bảo đưa lên đầu thiệp
+        window.scrollTo(0, 0);
+
+        // Kích hoạt hiệu ứng tự cuộn mượt mà từ trên xuống
+        startAutoScrollOnOpen();
     };
 
     if (openBtn) openBtn.addEventListener('click', openCard);
