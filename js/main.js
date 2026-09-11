@@ -726,8 +726,8 @@ function initSunbeamDust() {
         const rawT = initial ? Math.random() : -0.05;
         const t = initial ? Math.pow(rawT, 1.25) : -0.05;
 
-        // Trục giữa luồng sáng: chạy từ góc trên phải (x ~ 88%, y ~ 0%) xuống góc dưới trái (x ~ 22%, y ~ 100%)
-        const centerX = (0.9 - t * 0.7) * width;
+        // Trục giữa luồng sáng: chạy từ góc trên phải xuống góc dưới trái, căn ngay khe giữa dâu và rể
+        const centerX = (0.94 - t * 0.66) * width;
         const centerY = t * height;
 
         // Độ rộng luồng sáng: phía trên hẹp hơn (55px), phía dưới mở rộng dần (170px)

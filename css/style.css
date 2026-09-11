@@ -639,7 +639,7 @@ html, body {
 .sunbeam-ray {
   position: absolute;
   top: -30%;
-  right: -30%;
+  right: -40%;
   width: 160%;
   height: 160%;
   pointer-events: none;
@@ -686,7 +686,7 @@ html, body {
 .overlay-ray {
   position: absolute;
   top: -30%;
-  right: -30%;
+  right: -40%;
   width: 160%;
   height: 160%;
   background: linear-gradient(
